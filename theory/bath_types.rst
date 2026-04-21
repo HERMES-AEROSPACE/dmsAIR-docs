@@ -3,9 +3,9 @@ Heat Bath Types
 
 dmsAIR supports two canonical 0-D bath configurations, selected via the
 ``Bath Type`` keyword. These mirror the two reactor flavours studied
-throughout the DMS literature — the isothermal (imposed-temperature)
-bath that maps onto Master-Equation (ME) reactors, and the adiabatic
-post-shock bath used in e.g. [Valentini2016]_ and
+throughout the DMS literature — the isothermal (imposed-temperature) bath
+that maps onto master-equation (ME) reactors [Macdonald2018]_, and the
+adiabatic post-shock bath used in e.g. [Valentini2016]_ and
 [Torres2024Adiabatic]_.
 
 Isothermal bath
@@ -17,26 +17,27 @@ The translational temperature :math:`T_{\mathrm{tr}}` is **imposed**: at
 every time step each particle's centre-of-mass velocity is resampled from
 a Maxwell–Boltzmann distribution at :math:`T_{\mathrm{tr}}`. The internal
 temperature :math:`T_{\mathrm{int}}`, in contrast, evolves freely via
-collisional energy exchange from the initial value
+collisional energy exchange from an initial value
 (``Internal Temperature``) toward the equilibrium set by
 :math:`T_{\mathrm{tr}}`.
 
 This is the 0-D analogue of an infinite translational reservoir at
 :math:`T_{\mathrm{tr}}` coupled to a fixed inventory of internal-state
-population. It matches PLATO's ``Box_ODE`` reactor convention, so DMS-vs-ME
-comparisons are apples-to-apples.
+population. It matches PLATO's ``Box_ODE`` reactor convention, so
+DMS-vs-ME comparisons are strictly like-for-like.
 
 Adiabatic bath
 --------------
 
 ``Bath Type = adiabatic``.
 
-No velocity resampling — the total energy of the particle ensemble is
-conserved to integrator accuracy. Both :math:`T_{\mathrm{tr}}` and
-:math:`T_{\mathrm{int}}` evolve and asymptote to a common equilibrium
-temperature determined by the initial conditions (energy conservation +
-particle-number conservation). This is the relevant configuration for
-post-shock relaxation studies where the bath temperature is not externally
+No velocity resampling is applied — the total energy of the particle
+ensemble is conserved to integrator accuracy. Both
+:math:`T_{\mathrm{tr}}` and :math:`T_{\mathrm{int}}` evolve and
+asymptote to a common equilibrium temperature determined by the initial
+conditions (energy conservation together with particle-number
+conservation). This is the relevant configuration for post-shock
+relaxation studies where the bath temperature is not externally
 maintained [Torres2024Adiabatic]_.
 
 Density and pressure convention
@@ -51,11 +52,11 @@ The initial ``Pressure`` sets the total number density via
 i.e. using :math:`T_{\mathrm{int}}` (not :math:`T_{\mathrm{tr}}`). This is
 a deliberate choice that matches PLATO's reactor-bath conventions and
 preserves the initial internal-state distribution without perturbation.
-After initialisation, :math:`n` is held fixed (isothermal) or evolves via
-energy/particle conservation (adiabatic).
+After initialisation, :math:`n` is held constant (isothermal bath) or
+evolves through energy and particle conservation (adiabatic bath).
 
-Isothermal velocity resampling
-------------------------------
+Decoupling between translational and internal sampling
+------------------------------------------------------
 
 In the isothermal bath, the per-step Maxwellian resampling acts on the
 *translational* degrees of freedom only. The internal state

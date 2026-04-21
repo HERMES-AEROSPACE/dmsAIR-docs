@@ -21,6 +21,14 @@ Direct Molecular Simulation
    rotational relaxation of nitrogen through high total temperature shock
    waves using classical trajectory calculations.* Physics of Fluids
    **9**, 3543. DOI: `10.1063/1.869152 <https://doi.org/10.1063/1.869152>`_
+.. [Koura2002] Koura, K. (2002). *Direct simulation Monte Carlo study of
+   rotational nonequilibrium in shock wave and spherical expansion of
+   nitrogen using classical trajectory calculations.* Physics of Fluids
+   **14** (5), 1689. DOI: `10.1063/1.1467059 <https://doi.org/10.1063/1.1467059>`_
+.. [TokumasuMatsumoto1999] Tokumasu, T. & Matsumoto, Y. (1999). *Dynamic
+   molecular collision (DMC) model for rarefied gas flow simulations by
+   the DSMC method.* Physics of Fluids **11** (7), 1907–1920.
+   DOI: `10.1063/1.870053 <https://doi.org/10.1063/1.870053>`_
 .. [Fujita2002] Fujita, K. *et al.* (2002). *Assessment of molecular
    internal relaxation and dissociation by DSMC-QCT analysis.*
 .. [FujitaN2] Fujita, K. *Coupled rotation–vibration–dissociation
