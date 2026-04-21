@@ -475,78 +475,131 @@ These feed CoarseAIR's ``FindState`` routine (see
 Example
 -------
 
-A minimal NO + C input (CNO / 4A\ :sub:`2` PES) looks like:
+A production NO + C input on the UCI 4A\ :sub:`2` PES, configured for the
+``exchange1 + dissociation`` regime (CN + O channel only, dissociation
+enabled). The layout follows the same ordering used throughout the
+``run/`` tree: Thermodynamics → Numerics → Physics options → Integrator →
+Output → Species → Collision pair(s).
 
 .. code-block:: text
 
-   Translational Temperature [K]  = 10000
-   Internal Temperature [K]       = 300
-   Pressure [Pa]                  = 1000
+   ###############################################################################
+   #  NO + C  Heat Bath  —  UCI_4A2  —  T_tr = 10 000 K
+   #  regime: inelastic + exchange1 + dissociation (arr=2 only, CN + O)
+   #  Np = 683 800;  bmax = 12.0 Bohr
+   ###############################################################################
 
-   Nb of Particles             = 683800
-   Nb of Time Steps            = 10000000
-   Output Interval             = 100
-   Population Output Interval  = 1000
-   DMS Timestep Fraction       = 0.01
+   # ==============================================================
+   #  Thermodynamics
+   # ==============================================================
+      Translational Temperature [K]  = 10000
+      Internal Temperature [K]       = 300
+      Pressure [Pa]                  = 1000
 
-   Bath Type              = isothermal
-   Allow Dissociation     = yes
-   Allow Exchange         = yes
-   Allow Exchange Arr 3   = no          # keep only CN + O (Exchange 1)
-   Propagate Phase Space  = yes
+   # ==============================================================
+   #  Numerics
+   # ==============================================================
+      Nb of Particles             = 683800
+      Nb of Time Steps            = 10000000
+      Particle Weight             = 1
+      Output Interval             = 100
+      Population Output Interval  = 1000
+      DMS Timestep Fraction       = 0.01
 
-   Integrator          = VV
-   VV Timestep [a.u.]  = 4.0
-   Output Path         = Output/
+   # ==============================================================
+   #  Physics options
+   # ==============================================================
+      Bath Type              = isothermal
+      Allow Dissociation     = yes
+      Allow Exchange         = yes
+      Allow Exchange Arr 3   = no          # keep only CN + O (Exchange 1)
+      Propagate Phase Space  = yes
 
-   Nb of Species = 2
+   # ==============================================================
+   #  Integrator (QCT trajectory)
+   # ==============================================================
+      Integrator          = VV
+      VV Timestep [a.u.]  = 4.0
 
-   Species Name                = NO
-   Species X                   = 0.5
-   Species Tint [K]            = 300
-   Species Levels File         = levels_NO.inp
-   Species Is Molecule         = yes
-   Species NAtoms              = 2
-   Species Atom Name 1         = N
-   Species Atom Mass 1 [a.u.]  = 25526.04298
-   Species Atom Name 2         = O
-   Species Atom Mass 2 [a.u.]  = 29148.94559
-   Species Diatomic Model      = UCI
-   Species gnuc Even J         = 1
-   Species gnuc Odd J          = 1
+   # ==============================================================
+   #  Output
+   # ==============================================================
+      Output Path  = Output/
 
-   Species Name                = C
-   Species X                   = 0.5
-   Species Is Molecule         = no
-   Species NAtoms              = 1
-   Species Atom Name 1         = C
-   Species Atom Mass 1 [a.u.]  = 21868.661757
+   # ==============================================================
+   #  Species
+   # ==============================================================
+      Nb of Species  = 2
 
-   Nb of Collision Pairs = 1
+      # --- Species 1: NO ---
+      Species Name                = NO
+      Species X                   = 0.5
+      Species Tint [K]            = 300
+      Species Levels File         = levels_NO.inp
+      Species Is Molecule         = yes
+      Species NAtoms              = 2
+      Species Atom Name 1         = N
+      Species Atom Mass 1 [a.u.]  = 25526.04298
+      Species Atom Name 2         = O
+      Species Atom Mass 2 [a.u.]  = 29148.94559
+      Species Diatomic Model      = UCI
+      Species gnuc Even J         = 1
+      Species gnuc Odd J          = 1
 
-   Collision Pair Species 1        = 1
-   Collision Pair Species 2        = 2
-   Collision Pair System           = CNO
-   Collision Pair Database Path    = $COARSEAIR_DTB/
-   Collision Pair bmax [Bohr]      = 12.0
-   Collision Pair Dinit [Bohr]     = 30.0
-   Collision Pair Nb of PESs       = 1
-   Collision Pair PES Model 1      = UCI_4A2
-   Collision Pair PES Degeneracy 1 = 0.11112
-   Collision Pair Nb of Molecule Types       = 3
-   Collision Pair Molecule 1 Name            = NO
-   Collision Pair Molecule 1 Diatomic Model  = UCI
-   Collision Pair Molecule 1 Levels File     = NO_UCI.inp
-   Collision Pair Molecule 2 Name            = CN
-   Collision Pair Molecule 2 Diatomic Model  = UCI
-   Collision Pair Molecule 2 Levels File     = CN_UCI.inp
-   Collision Pair Molecule 3 Name            = CO
-   Collision Pair Molecule 3 Diatomic Model  = UCI
-   Collision Pair Molecule 3 Levels File     = CO_UCI.inp
-   Collision Pair ODE dt [a.u.]    = 5.0
-   Collision Pair ODE eps          = 1.0e-8
-   Collision Pair ODE NSteps       = 3
-   Collision Pair ODE ncall        = 10
-   Collision Pair ODE Rmax [Bohr]  = 40.0
-   Collision Pair ODE tmax [a.u.]  = 1035000.0
-   Collision Pair nquad            = 50
+      # --- Species 2: C ---
+      Species Name                = C
+      Species X                   = 0.5
+      Species Is Molecule         = no
+      Species NAtoms              = 1
+      Species Atom Name 1         = C
+      Species Atom Mass 1 [a.u.]  = 21868.661757
+
+   # ==============================================================
+   #  Collision pair(s)
+   # ==============================================================
+      Nb of Collision Pairs  = 1
+
+      # --- Pair setup ---
+      Collision Pair Species 1      = 1
+      Collision Pair Species 2      = 2
+      Collision Pair System         = CNO
+      Collision Pair Database Path  = $COARSEAIR_DTB/
+
+      # --- Geometry ---
+      Collision Pair bmax [Bohr]   = 12.0
+      Collision Pair Dinit [Bohr]  = 30.0
+
+      # --- ODE parameters (QCT trajectory) ---
+      Collision Pair ODE dt [a.u.]    = 5.0
+      Collision Pair ODE eps          = 1.0e-8
+      Collision Pair ODE NSteps       = 3
+      Collision Pair ODE Relax        = 0.5
+      Collision Pair ODE ncall        = 10
+      Collision Pair ODE Rmax [Bohr]  = 40.0
+      Collision Pair ODE tmax [a.u.]  = 1035000.0
+
+      # --- Quantisation / find-state ---
+      Collision Pair nquad        = 50
+      Collision Pair rcent lower  = 1.0
+      Collision Pair rcent upper  = 30.0
+      Collision Pair rfact        = 0
+      Collision Pair tthresau     = 1.0e-100
+      Collision Pair HamAbsTol    = 1.0e-5
+
+      # --- Potential Energy Surface(s) ---
+      Collision Pair Nb of PESs        = 1
+      Collision Pair PES Model 1       = UCI_4A2
+      Collision Pair PES Degeneracy 1  = 0.11112
+      Collision Pair Distinguish PESs  = no
+
+      # --- Product molecule types ---
+      Collision Pair Nb of Molecule Types       = 3
+      Collision Pair Molecule 1 Name            = NO
+      Collision Pair Molecule 1 Diatomic Model  = UCI
+      Collision Pair Molecule 1 Levels File     = NO_UCI.inp
+      Collision Pair Molecule 2 Name            = CN
+      Collision Pair Molecule 2 Diatomic Model  = UCI
+      Collision Pair Molecule 2 Levels File     = CN_UCI.inp
+      Collision Pair Molecule 3 Name            = CO
+      Collision Pair Molecule 3 Diatomic Model  = UCI
+      Collision Pair Molecule 3 Levels File     = CO_UCI.inp
