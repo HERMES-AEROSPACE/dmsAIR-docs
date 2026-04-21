@@ -85,20 +85,60 @@ for four-body). This yields the arrangement code used downstream; see
 Semiclassical quantisation
 --------------------------
 
-The surviving product molecule's coordinates are passed to CoarseAIR's
-``FindState`` routine, which recovers the product quantum numbers by
-numerical evaluation of the action integral
+At convergence, the surviving diatomic product is characterised by its
+relative position :math:`\mathbf{r}` and conjugate momentum
+:math:`\mathbf{p}`. Its internal (vibrational + rotational) energy is
+
+.. math::
+
+   E = \frac{p_r^2}{2 \mu} + \frac{L^2}{2 \mu r^2} + V(r) ,
+
+where :math:`p_r` is the radial momentum, :math:`L = |\mathbf{r} \times
+\mathbf{p}|` is the magnitude of the rotational angular momentum, and
+:math:`V(r)` is the diatomic potential associated with the surviving
+pair.
+
+The product's coordinates are passed to CoarseAIR's ``FindState`` routine,
+which recovers the semiclassical quantum numbers :math:`(v', j')` by
+inverting the Bohr–Sommerfeld quantisation conditions:
+
+**Rotational quantum number.** The conserved classical angular momentum
+is mapped onto an integer :math:`j'` via
+
+.. math::
+
+   j' + \tfrac{1}{2} = \frac{L}{\hbar} ,
+
+so that :math:`j'(j'+1) \hbar^2 \to L^2` in the correspondence limit.
+Equivalently, :math:`j' = \lfloor L/\hbar - \tfrac{1}{2} \rfloor` rounded
+to the nearest non-negative integer. Because :math:`L` is constant along
+the asymptotic product trajectory, evaluating it at the end of the
+integration is unambiguous.
+
+**Vibrational quantum number.** Once :math:`j'` is fixed, :math:`v'` is
+obtained from the radial action integral
 
 .. math::
 
    v' + \tfrac{1}{2} =
        \frac{1}{\pi \hbar}
+       \oint p_r \, dr
+       = \frac{1}{\pi \hbar}
        \oint \sqrt{ 2 \mu \bigl( E - V_{\mathrm{eff}}(r) \bigr) } \; dr ,
 
-between the inner and outer classical turning points of the effective
-radial potential :math:`V_{\mathrm{eff}}(r) = V(r) + j(j+1)\hbar^2 /
-(2 \mu r^2)`. The rotational quantum number :math:`j'` is obtained from
-the asymptotic angular momentum.
+evaluated between the inner and outer classical turning points of the
+effective radial potential
+
+.. math::
+
+   V_{\mathrm{eff}}(r) = V(r) + \frac{\hbar^2 j'(j'+1)}{2 \mu r^2} .
+
+The turning points are located numerically by CoarseAIR's ``TurningPoint``
+routine, and the action integral is evaluated by Gauss-Legendre quadrature
+with ``nquad`` nodes (a run-time input). The final
+:math:`(v', j')` is then rounded to the nearest valid bound state and
+matched against the levels database to recover the quantised internal
+energy :math:`\varepsilon_{v' j'}`.
 
 For heteronuclear exchange in a polyatomic system (e.g. NO + C → CN + O on
 the 4A\ :sub:`2` surface), the product molecule must be quantised against
