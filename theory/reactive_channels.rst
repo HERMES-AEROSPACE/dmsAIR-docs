@@ -113,11 +113,3 @@ at matched bath conditions is used as the primary validation criterion
 dedicated QCT rate-coefficient studies on nitrogen [FujitaN2]_ and on
 CO + O [FujitaCO]_.
 
-.. note::
-
-   Fix history — the heteronuclear exchange pathways were silently
-   discarded in versions prior to Rev 0.1 because ``MolState%iPair = 1``
-   was hard-coded when quantising the product molecule. A CN or CO
-   product was being quantised against the NO potential and systematically
-   rejected. This is now fixed via
-   ``MolState%iPair = max(arrangement, 1)``.

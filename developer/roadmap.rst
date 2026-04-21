@@ -37,13 +37,3 @@ Long-term
   PES calls could yield 5-10× speed-up per rank.
 - **Machine-learned PESs** — plug in BNN/GP surrogates for trajectory
   bulk evaluations with uncertainty quantification.
-
-Completed
----------
-
-- Heteronuclear exchange quantisation (Rev 0.1)
-- Per-arrangement exchange filter (``Allow Exchange Arr N``)
-- 4-body support (H4, double-dissociation handling)
-- Strategy (c) persistent phase-space propagation
-- MPI-parallel NTC pair processing
-- Sphinx documentation site (this site)

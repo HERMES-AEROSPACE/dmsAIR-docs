@@ -56,7 +56,6 @@ models break down and state-resolved physics is required.
 
    reference/about
    reference/validation
-   reference/changelog
    reference/bibliography
 
 .. toctree::
