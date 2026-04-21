@@ -10,9 +10,11 @@ hypersonic-flight atmospheric chemistry.
 Authors
 -------
 
-- **Clement Civrais** — lead developer (`GitHub <https://github.com/ClementCivrais>`_)
-- **Prof. Sung Min Jo** — co-author
-- **Prof. Marco Panesi** — principal investigator, HERMES Aerospace research group
+- **Clement Civrais** — lead developer, University of California, Irvine
+  (`GitHub <https://github.com/ClementCivrais>`_)
+- **Prof. Sung Min Jo** — co-author, University of Central Florida
+- **Prof. Marco Panesi** — principal investigator, University of
+  California, Irvine (HERMES Aerospace research group)
 
 Related HERMES codes
 --------------------
