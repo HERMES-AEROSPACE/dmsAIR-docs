@@ -45,11 +45,3 @@ Plot
 
 Open ``postprocessing/Postprocessing/Figures/H3/NoDissociation/Energy.pdf`` to
 see DMS (red dots) overlaid on the ME reference (black lines).
-
-Next
-----
-
-- :doc:`input_reference` — every keyword in ``dmsAIR.inp``
-- :doc:`running_simulations` — MPI, SLURM, and parameter sweeps
-- :doc:`/examples/noc_heatbath` — a heteronuclear 3-body example (NO+C) with
-  two distinct exchange channels (CN+O and CO+N)
