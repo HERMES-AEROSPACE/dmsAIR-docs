@@ -43,11 +43,39 @@ Regime mapping
 Running a single case
 ---------------------
 
+dmsAIR supports two execution modes, selected by which launcher you call
+inside the case directory.
+
+**Local machine** (laptop / workstation; runs MPI directly):
+
 .. code-block:: bash
 
    cd run/CNO/4A2/NO+C/exchange1/10000K
-   sbatch sbatch_heatbath.slurm            # cluster
-   # or ./dmsAIR.sh 16                     # local
+   ./dmsAIR.sh 16     # 16 MPI ranks (omit the argument → default 16)
+
+**Cluster with a SLURM scheduler** (submit a batch job):
+
+.. code-block:: bash
+
+   cd run/CNO/4A2/NO+C/exchange1/10000K
+   sbatch sbatch_heatbath.slurm
+
+The two launchers are designed to be drop-in equivalents:
+
+- ``dmsAIR.sh`` wraps ``mpirun`` for the local architecture, with a
+  TCP + shared-memory fallback when the host lacks an InfiniBand fabric.
+  The rank count is an argument (``./dmsAIR.sh <N>``), an environment
+  variable (``NRANKS=<N> ./dmsAIR.sh``), or defaults to 16.
+- ``sbatch_heatbath.slurm`` is a SLURM template that sets
+  ``--nodes``, ``--ntasks-per-node``, accounts and partitions, loads the
+  cluster toolchain, and invokes the binary via ``mpirun --bind-to none``
+  to bypass the SLURM PMIx stack on hosts where MUNGE is unavailable.
+
+Only one of the two is active in a given environment — if
+``$SLURM_JOB_ID`` is defined, ``dmsAIR.sh`` tightens its MPI fabric
+settings to full-speed (UCX/IB) production; otherwise it falls back to
+TCP. This way the **same** case directory can be run on either
+architecture without edits.
 
 Launching a full sweep
 ----------------------
@@ -68,11 +96,3 @@ Post-processing
 
 Generates comparison plots against PLATO's ME reference at
 ``/home/ccivrais/WORKSPACE/PLATO/run/CNO/MasterEquationAnalysis/NO+C/``.
-
-Expected physics
-----------------
-
-- Both exchange channels are exothermic: ΔE(Ex1) ≈ −1.2 eV, ΔE(Ex2) ≈ −4.6 eV.
-- Ex2 (CO+N) is typically ~2× more frequent than Ex1 (CN+O) on the 4A2 PES
-  because CO is more deeply bound.
-- At 10 000 K the dissociation rate is ``k_DD ~ 10^{-16}`` m\ :sup:`3`\ /s.
