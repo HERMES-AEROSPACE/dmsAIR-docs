@@ -36,7 +36,6 @@ Physics options
    Allow Exchange Arr 2   = yes               # per-channel switch (arr=2 = first exchange pair)
    Allow Exchange Arr 3   = yes               # per-channel switch (arr=3 = second exchange pair)
    Propagate Phase Space  = yes               # strategy (c): persistent atomic coords
-   NTC Scheme             = batch             # 'batch' or 'sparta'
 
 Per-arrangement exchange flags
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,7 +65,7 @@ Integrator
 
 .. code-block:: text
 
-   Integrator          = VV             # BS | VV | Y4 | Y6 | RK4
+   Integrator          = VV             # BS | VV
    VV Timestep [a.u.]  = 4.0
 
 Species & pairs

@@ -1,7 +1,7 @@
 About dmsAIR
 ============
 
-dmsAIR is developed at the University of Illinois Urbana–Champaign, in the
+dmsAIR is developed at the University of California, Irvine, in the
 `HERMES Aerospace research group <https://hermes-aerospace.github.io/>`_
 led by Prof. Marco Panesi. The code implements the Direct Molecular
 Simulation (DMS) approach to nonequilibrium gas kinetics with a focus on
@@ -11,7 +11,8 @@ Authors
 -------
 
 - **Clement Civrais** — lead developer (`GitHub <https://github.com/ClementCivrais>`_)
-- HERMES Aerospace research group — scientific supervision
+- **Prof. Sung Min Jo** — co-author
+- **Prof. Marco Panesi** — principal investigator, HERMES Aerospace research group
 
 Related HERMES codes
 --------------------
@@ -31,15 +32,18 @@ file in the repository.
 Citing dmsAIR
 -------------
 
-If you use dmsAIR in published work, please cite the accompanying method
-paper (in preparation) and the upstream DMS references:
+Two application papers introducing dmsAIR are being presented by the
+HERMES Aerospace group in 2027:
 
-- Koura, K. (1997). *Monte Carlo direct simulation of rotational relaxation
-  of nitrogen through high total temperature shock waves using classical
-  trajectory calculations.* Physics of Fluids **9**, 3543.
-- Grover, M. S. & Schwartzentruber, T. E. (2019). *Direct molecular
-  simulation of internal energy relaxation and dissociation in oxygen.*
-  Physics of Fluids **31**, 076107.
-- Torres, E. & Schwartzentruber, T. E. (2024). *Direct molecular simulation
-  algorithm for improved non-Boltzmann state-to-state kinetics in reacting
-  gas flows.* Journal of Thermophysics and Heat Transfer.
+- Civrais, C., Jo, S. M. & Panesi, M. (2027). *Master Equation Analysis and
+  Direct Molecular Simulation Study of NO(X) + C(P) Collisional System.*
+  AIAA SciTech Forum, 2027 (conference presentation).
+- Civrais, C., Jo, S. M. & Panesi, M. (2027). *Nonequilibrium Hydrogen
+  Kinetics for Gas Giant Atmospheric Entry.* 34th International Symposium
+  on Rarefied Gas Dynamics (RGD 34, conference presentation).
+
+Full journal manuscripts corresponding to these presentations will be
+published in 2027 and 2028. Citation details will be updated here as each
+manuscript becomes available. In the meantime, please reference this
+documentation site and the associated GitHub repository when citing the
+solver.

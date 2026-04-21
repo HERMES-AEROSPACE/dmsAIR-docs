@@ -16,7 +16,7 @@ Source-tree layout
    │   ├── DSMC/
    │   │   ├── DMS_Collision_Class.F90   # Collision-object driver (Execute_QN)
    │   │   ├── QCT_Collision_Module.F90  # QCT-specific logic
-   │   │   └── Integrator_Class.F90      # BS / VV / Yoshida / RK4
+   │   │   └── Integrator_Class.F90      # BS / VV integrators
    │   ├── Measurement/
    │   │   └── Measurement_Class.F90     # box.csv writer, rate accumulators
    │   ├── Particles/

@@ -1,11 +1,42 @@
 Reactive Channels
 =================
 
-A QCT trajectory launched from A + BC (3-body) can terminate in any of
-four arrangement classes. dmsAIR counts and propagates each class separately.
+At the end of a QCT trajectory, every surviving atom pair whose separation
+remains below a bond cutoff (:math:`r_{\max} = 10` Bohr) is classified as a
+"bound product". The pattern of bound and broken pairs uniquely identifies
+the outcome class — inelastic, exchange (with multiple branches for
+heteronuclear systems), or dissociation. dmsAIR counts and propagates each
+class separately so that state-resolved rate coefficients emerge naturally
+from the collision statistics.
+
+For a 3-body system A + BC, three physical outcomes are relevant:
+
+- **Inelastic** (pair 1 survives): the target diatom re-emerges with a
+  possibly different :math:`(v', j')`. Dominant at low translational
+  energies; encodes VT, RT and VV energy transfer.
+- **Exchange**: a new bond forms between atoms that were not originally
+  bonded. For heteronuclear systems with distinct product manifolds this
+  yields multiple distinguishable branches (e.g. NO + C → CN + O *vs.*
+  NO + C → CO + N on the 4A2 PES).
+- **Dissociation**: no bond survives; the diatom is fragmented into two
+  free atoms.
+
+For 4-body systems AB + CD the analogous outcomes include *double
+dissociation* — all four atoms escaping in a single event. The double-
+dissociation channel cannot be represented in a standard pair-based
+master equation and is therefore disabled by default in dmsAIR for
+apples-to-apples comparisons with PLATO (``Allow Double Dissociation = no``).
+
+Arrangement codes
+-----------------
 
 3-body system
--------------
+~~~~~~~~~~~~~
+
+Atoms are numbered 1, 2 (target diatom) and 3 (projectile atom). Pair
+indices follow CoarseAIR's convention:
+
+.. code-block:: text
 
 Atoms are numbered 1, 2 (target diatom) and 3 (projectile atom). Pair
 indices follow CoarseAIR's convention:
@@ -60,6 +91,30 @@ Any individual exchange channel can be disabled via
 counted in ``pair_N_att`` or ``pair_N_exch``, keeping rate coefficients for
 the enabled channels statistically clean. This is the mechanism behind
 the ``exchange1`` / ``exchange2`` regime folders in the CNO run tree.
+
+Rate coefficient measurement
+----------------------------
+
+Rate coefficients for every channel are measured directly from the event
+counts per NTC-output window:
+
+.. math::
+
+   k_{\mathrm{ch}} = \langle v_{\mathrm{rel}} \rangle \; \pi b_{\max}^2 \;
+                     \frac{N_{\mathrm{ch}}}{N_{\mathrm{att}}} ,
+
+with :math:`b_{\max}` the cut-off impact parameter (cross-section
+convention: geometric, not empirical) and :math:`\langle v_{\mathrm{rel}}
+\rangle` the ensemble-averaged relative velocity of the accepted pairs.
+Because the sampled :math:`(b, E_{\mathrm{rel}})` distribution is the
+correct thermal distribution set by the NTC acceptance law, this yields
+the state-specific *thermal* rate coefficient
+:math:`k_{\mathrm{ch}}(T_{\mathrm{tr}}, T_{\mathrm{int}})` without further
+assumptions. Cross-verification against PLATO ME runs at matched bath
+conditions is used as the primary validation criterion
+[Macdonald2018]_ [GroverSchwartzentruber2019]_ [ManinderO2]_, alongside
+dedicated QCT rate-coefficient studies on nitrogen [FujitaN2]_ and on CO+O
+[FujitaCO]_.
 
 .. note::
 

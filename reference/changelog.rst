@@ -46,6 +46,6 @@ Pre-0.1 development notes are kept in ``docs/Reports/Development_Log.md``
 
 - Core Fortran port of Torres-Schwartzentruber DMS to the CoarseAIR stack.
 - Strategy (c) persistent phase-space propagation implemented.
-- MPI-parallel NTC pair processing (batch scheme).
+- MPI-parallel NTC pair processing.
 - 4-body support (H4, extendable to N4/O4).
 - ScatteringMap and IntegratorStudy companion binaries.

@@ -45,5 +45,5 @@ Completed
 - Per-arrangement exchange filter (``Allow Exchange Arr N``)
 - 4-body support (H4, double-dissociation handling)
 - Strategy (c) persistent phase-space propagation
-- MPI-parallel NTC batch scheme
+- MPI-parallel NTC pair processing
 - Sphinx documentation site (this site)

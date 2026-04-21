@@ -14,7 +14,7 @@ models break down and state-resolved physics is required.
 
 .. note::
 
-   dmsAIR is developed at the University of Illinois Urbana–Champaign, in the
+   dmsAIR is developed at the University of California, Irvine, in the
    `HERMES Aerospace research group <https://hermes-aerospace.github.io/>`_
    led by Prof. Marco Panesi. It is released under the
    `MIT License <https://github.com/ClementCivrais/dmsAIR/blob/main/LICENSE>`_.
