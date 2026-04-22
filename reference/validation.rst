@@ -30,8 +30,11 @@ production cases, compared against PLATO's
 - ``Exchange2_4S`` ↔ DMS ``exchange2`` (CO+N channel)
 - ``Exchange1_Dissociation`` ↔ DMS ``exchange1+dissociation``
 - ``Exchange2_4S_Dissociation`` ↔ DMS ``exchange2+dissociation``
-- ``TotalDissociation`` ↔ DMS ``dissociation`` (DMS counts every
-  dissociation trajectory, both direct and exchange-mediated)
+- ``DirectDissociation`` ↔ DMS ``directdissociation`` (DMS restricts
+  the dissociation channel to direct trajectories — no transient CN
+  or CO bound intermediate)
+- ``TotalDissociation`` ↔ DMS ``totaldissociation`` (DMS keeps every
+  dissociation trajectory, direct and exchange-mediated)
 
 Post-processor: ``postprocessing/Postprocessing/postprocessing.py
 --system CNO``.

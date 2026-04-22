@@ -16,10 +16,11 @@ with
 
 - ``PES`` ∈ {``2A1x2``, ``2A1+2A2``, ``4A2``}
 - ``regime`` ∈ {``inelastic``, ``exchange1``, ``exchange2``,
-  ``exchange1+dissociation``, ``exchange2+dissociation``, ``dissociation``}
+  ``exchange1+dissociation``, ``exchange2+dissociation``,
+  ``directdissociation``, ``totaldissociation``}
 - ``T`` ∈ {``1500K``, ``2500K``, ``5000K``, ``10000K``, ``20000K``}
 
-= 3 × 6 × 5 = 90 cases per subsystem (NO+C / CN+O / CO+N).
+= 3 × 7 × 5 = 105 cases per subsystem (NO+C / CN+O / CO+N).
 
 Regime mapping
 --------------
@@ -37,7 +38,13 @@ Regime mapping
 +--------------------------------+------------------------------------------+
 | ``exchange2+dissociation``     | Ex2 only + Allow Dissociation = yes      |
 +--------------------------------+------------------------------------------+
-| ``dissociation``               | Allow Exchange = no, Allow Diss = yes    |
+| ``directdissociation``         | Allow Exchange = no, Allow Diss = yes,   |
+|                                | Allow Dissociation Indirect Arr 2 = no,  |
+|                                | Allow Dissociation Indirect Arr 3 = no   |
+|                                | → direct dissociation only               |
++--------------------------------+------------------------------------------+
+| ``totaldissociation``          | Allow Exchange = no, Allow Diss = yes    |
+|                                | → direct + all indirect pathways         |
 +--------------------------------+------------------------------------------+
 
 Running a single case
@@ -82,9 +89,9 @@ Launching a full sweep
 
 .. code-block:: bash
 
-   # All six regimes × five temperatures on the 4A2 PES
+   # All seven regimes × five temperatures on the 4A2 PES
    ./src/scripts/launchDMS.py --subsys NO+C --pes 4A2 --regime all --T all
-   # = 30 SLURM submissions
+   # = 35 SLURM submissions
 
 Post-processing
 ---------------
