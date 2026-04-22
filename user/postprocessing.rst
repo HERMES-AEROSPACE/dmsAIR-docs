@@ -38,7 +38,7 @@ and a QSS-rate summary. The default regime → ME mapping is:
 +------------------------------+---------------------------------+
 | ``exchange2+dissociation``   | ``Exchange2_4S_Dissociation``   |
 +------------------------------+---------------------------------+
-| ``dissociation``             | ``DirectDissociation``          |
+| ``dissociation``             | ``TotalDissociation``           |
 +------------------------------+---------------------------------+
 
 Override with ``--me-map "regime=folder"`` tokens.
