@@ -134,6 +134,22 @@ Physics options
        6\}`. Set to ``no`` to silence channel :math:`N` (e.g. ``Arr 3 =
        no`` keeps only CN + O in NO + C). See
        :doc:`/theory/reactive_channels`.
+   * - ``Allow Dissociation Direct``
+     - yes/no
+     - yes
+     - Allow direct dissociation trajectories (no transient bound
+       complex formed during the collision). Classification is
+       performed at runtime from the per-pair peak-Rpi record; a
+       rejected direct trajectory is cycled before any counter fires,
+       so the reported rate coefficients stay clean.
+   * - ``Allow Dissociation Indirect Arr N``
+     - yes/no
+     - yes
+     - Per-arrangement filter for exchange-assisted dissociation
+       (trajectory transits a transient arrangement-:math:`N` bound
+       complex before all atoms unbind) for :math:`N \in \{2, 3, 4, 5,
+       6\}`. Let you isolate e.g. CN-mediated vs CO-mediated NO + C
+       dissociation. See :doc:`/theory/reactive_channels`.
    * - ``Propagate Phase Space``
      - yes/no
      - yes
