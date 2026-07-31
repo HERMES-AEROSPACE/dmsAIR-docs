@@ -25,27 +25,24 @@ with
 Regime mapping
 --------------
 
-+--------------------------------+------------------------------------------+
-| Regime folder                  | Input flags                              |
-+================================+==========================================+
-| ``inelastic``                  | Allow Exchange = no, Allow Diss = no     |
-+--------------------------------+------------------------------------------+
-| ``exchange1``                  | Allow Exchange Arr 3 = no (CN+O only)    |
-+--------------------------------+------------------------------------------+
-| ``exchange2``                  | Allow Exchange Arr 2 = no (CO+N only)    |
-+--------------------------------+------------------------------------------+
-| ``exchange1+dissociation``     | Ex1 only + Allow Dissociation = yes      |
-+--------------------------------+------------------------------------------+
-| ``exchange2+dissociation``     | Ex2 only + Allow Dissociation = yes      |
-+--------------------------------+------------------------------------------+
-| ``directdissociation``         | Allow Exchange = no, Allow Diss = yes,   |
-|                                | Allow Dissociation Indirect Arr 2 = no,  |
-|                                | Allow Dissociation Indirect Arr 3 = no   |
-|                                | → direct dissociation only               |
-+--------------------------------+------------------------------------------+
-| ``totaldissociation``          | Allow Exchange = no, Allow Diss = yes    |
-|                                | → direct + all indirect pathways         |
-+--------------------------------+------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 32 50
+
+   * - Regime folder
+     - Input flags
+   * - ``inelastic``
+     - Allow Exchange Arr 1 = no, Allow Diss = no
+   * - ``exchange1``
+     - Allow Exchange Arr 3 = no (CN+O only)
+   * - ``exchange2``
+     - Allow Exchange Arr 2 = no (CO+N only)
+   * - ``exchange1+dissociation``
+     - Ex1 only + Allow Dissociation = yes
+   * - ``exchange2+dissociation``
+     - Ex2 only + Allow Dissociation = yes
+   * - ``totaldissociation``
+     - Allow Exchange Arr 1 = no, Allow Diss = yes → single dissociation channel
 
 Running a single case
 ---------------------

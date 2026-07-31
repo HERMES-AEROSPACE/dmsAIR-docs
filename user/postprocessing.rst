@@ -3,6 +3,16 @@ Post-processing
 
 dmsAIR ships a suite of Python post-processors under ``postprocessing/``.
 
+.. note::
+
+   The repository tracks **scripts and input decks only**. Simulation
+   outputs (``box.csv``, ``pop.csv``, ``kernel.csv``, checkpoints) and the
+   multi-GB Master-Equation reference solutions/databases
+   (``postprocessing/Reference/``, ``postprocessing/Reference_Clement/``,
+   ``postprocessing/Postprocessing/DerivedData/``) live only on the local
+   machine / cluster and are excluded via ``.gitignore``. Obtain reference
+   data from the group storage before running the comparison scripts.
+
 H3 DMS-vs-ME comparison
 -----------------------
 
@@ -59,6 +69,28 @@ Scattering maps
 - ``plot_chi_surface3d.py``: 3D surface view.
 - ``plot_bmax_powerlaw.py``: Langevin-capture fit ``bmax = a·E^b`` at the 1°
   iso-contour.
+
+Verification suite (DMS vs ME)
+------------------------------
+
+Beyond the main ``postprocessing.py`` pipeline, dedicated verification
+scripts under ``postprocessing/Postprocessing/`` compare DMS runs
+one-to-one against Master-Equation references:
+
+- ``verify_H2_strategy3_vs_ME.py`` / ``verify_H2_dissociation_vs_ME.py`` —
+  H2+H and H2+He relaxation and dissociation against the rebuilt PLATO
+  box databases.
+- ``verify_CNO_inelastic_vs_ME.py`` / ``verify_CNO_all_vs_ME.py`` — CNO
+  subsystems per PES and regime.
+- ``compare_H2_ME_DMS.py`` / ``compare_H4_DMS_vs_ME.py`` /
+  ``compare_coupled_NOCN.py`` — multi-source overlays (DMS vs independent
+  ME datasets; coupled NO+C ↔ CN+O).
+- ``extract_H2_qss_quantities.py`` / ``extract_NOC_qss_quantities.py`` /
+  ``extract_verification_tau.py`` — QSS rates and e-folding relaxation
+  times from ``box.csv`` histories.
+- ``me_pop_reader.py`` — shared reader for PLATO ``pop_<species>.dat``
+  population files (Trot/Tvib reconstruction via the Panesi
+  decomposition); ``me_db_closure_test.py`` — ME database sanity checks.
 
 Population inspection
 ---------------------

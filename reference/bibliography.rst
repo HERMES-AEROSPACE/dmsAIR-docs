@@ -67,6 +67,20 @@ Master equation comparison
 .. [Macdonald2018] Macdonald, R. L. *et al. State-to-state master equation
    and direct molecular simulation study of energy transfer and
    dissociation for the N\ :sub:`2`-N system.*
+.. [Macdonald2020] Macdonald, R. L., Munafò, A., Johnston, C. O. & Panesi,
+   M. (2020). *State-to-state master equation and direct molecular
+   simulation study of energy transfer and dissociation for the
+   N\ :sub:`2`-N system.* Journal of Physical Chemistry A **124**,
+   6986–7000. — Source of the dissociation-energy coupling terms
+   :math:`C_{DR}`, :math:`C_{DV}` reported per collision pair in
+   ``box.csv`` (Eq. 11).
+.. [Panesi2013] Panesi, M., Magin, T. E., Munafò, A. & Schwartzentruber,
+   T. E. (2013). *Rovibrational internal energy transfer and dissociation
+   of N\ :sub:`2`(\ :sup:`1`\ Σ\ :sub:`g`\ :sup:`+`)-N(\ :sup:`4`\
+   S\ :sub:`u`) system in hypersonic flows.* Journal of Chemical Physics
+   **138**, 044312. — Source of the rovibrational
+   T\ :sub:`vib` / T\ :sub:`rot` decomposition reported per declared
+   species in ``box.csv`` (Eqs. 19–30).
 .. [ManinderO2] Maninder, S. *Direct molecular simulation of internal
    energy relaxation and dissociation in oxygen.*
 

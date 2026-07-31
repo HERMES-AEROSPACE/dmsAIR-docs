@@ -123,10 +123,11 @@ Physics options
      - 4-body only. Enables the fully-dissociated channel
        (``arrangement = -2``). Disabled by default to keep DMS-vs-ME
        comparisons like-for-like.
-   * - ``Allow Exchange``
+   * - ``Allow Exchange Arr 1``
      - yes/no
      - yes
-     - Master switch for all exchange reactions.
+     - Master switch for all exchange reactions (``Arr 1`` keeps the
+       naming scheme uniform with the per-arrangement filters below).
    * - ``Allow Exchange Arr N``
      - yes/no
      - yes
@@ -134,22 +135,6 @@ Physics options
        6\}`. Set to ``no`` to silence channel :math:`N` (e.g. ``Arr 3 =
        no`` keeps only CN + O in NO + C). See
        :doc:`/theory/reactive_channels`.
-   * - ``Allow Dissociation Direct``
-     - yes/no
-     - yes
-     - Allow direct dissociation trajectories (no transient bound
-       complex formed during the collision). Classification is
-       performed at runtime from the per-pair peak-Rpi record; a
-       rejected direct trajectory is cycled before any counter fires,
-       so the reported rate coefficients stay clean.
-   * - ``Allow Dissociation Indirect Arr N``
-     - yes/no
-     - yes
-     - Per-arrangement filter for exchange-assisted dissociation
-       (trajectory transits a transient arrangement-:math:`N` bound
-       complex before all atoms unbind) for :math:`N \in \{2, 3, 4, 5,
-       6\}`. Let you isolate e.g. CN-mediated vs CO-mediated NO + C
-       dissociation. See :doc:`/theory/reactive_channels`.
    * - ``Propagate Phase Space``
      - yes/no
      - yes
@@ -346,8 +331,9 @@ Up to five electronic states can be declared per collision pair. Only
    * - ``Collision Pair PES Degeneracy K``
      - real
      - 1.0
-     - Statistical weight of the :math:`K`-th PES (fraction of
-       trajectories sampled on it).
+     - Statistical weight :math:`g_K` of the :math:`K`-th PES (its electronic
+       degeneracy fraction). Sets the share of collisions sampled on this PES
+       and the fraction rejected — see :ref:`the note below <multi-pes-sampling>`.
    * - ``Collision Pair PES Parameters File``
      - string
      - —
@@ -357,6 +343,39 @@ Up to five electronic states can be declared per collision pair. Only
      - no
      - When multiple PESs are declared, report rate coefficients per-PES
        instead of aggregated.
+
+.. _multi-pes-sampling:
+
+.. note::
+
+   **Degeneracy-weighted multi-PES sampling.** When several PESs are declared,
+   each colliding pair selects *one* of them by a single draw against the
+   *cumulative* per-PES degeneracies. With :math:`u \sim \mathcal{U}(0,1)`, the
+   trajectory is integrated on PES :math:`k` when
+
+   .. math::
+
+      \sum_{j<k} g_j \;\le\; u \;<\; \sum_{j\le k} g_j ,
+
+   and the collision is **rejected outright** when
+   :math:`u \ge \sum_j g_j` — it correlates to an electronic manifold not
+   included in the run. Each PES therefore receives a share of trajectories
+   proportional to its *own* weight :math:`g_k` (this is a *PES-specific*
+   rejection, not a single lumped accept/reject), and the overall relaxation
+   rate carries the factor :math:`\sum_j g_j`.
+
+   A single PES of weight ``1.0`` (e.g. ``H3_BH``, ``H4_BMKP``) skips the draw
+   entirely and every collision proceeds, so single-manifold runs are
+   unaffected. The weights are the electronic degeneracies of the reactant
+   asymptote (temperature-dependent partition-function ratios for CNO); they
+   are evaluated at the run temperature and written into the deck. Running
+   several PESs in one simulation reproduces the full electronically-mixed
+   ("global") dynamics directly, instead of summing separate per-PES runs.
+
+   *Example (CNO, NO+C at 10000 K):* two declared PESs with
+   :math:`g_{2A1}=0.11242` and :math:`g_{4A2}=0.11228`
+   (:math:`\sum g = 0.225`) sample ~50 % of accepted trajectories on each and
+   reject ~77.5 % of NTC-selected pairs.
 
 Product-molecule declarations (per pair)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -527,7 +546,7 @@ Output → Species → Collision pair(s).
    # ==============================================================
       Bath Type              = isothermal
       Allow Dissociation     = yes
-      Allow Exchange         = yes
+      Allow Exchange Arr 1   = yes
       Allow Exchange Arr 3   = no          # keep only CN + O (Exchange 1)
       Propagate Phase Space  = yes
 

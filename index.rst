@@ -66,7 +66,6 @@ models break down and state-resolved physics is required.
    developer/architecture
    developer/adding_a_system
    developer/regression_tests
-   developer/roadmap
 
 Indices and tables
 ==================

@@ -79,6 +79,26 @@ Arrangement ``0`` is inelastic (pairs 1 and 6 intact), arrangements
 ``3..6`` are the four cross-pair exchanges, ``-1`` denotes single
 dissociation and ``-2`` double dissociation.
 
+Outcome classification is by **bond counting**: ``n_short`` is the number
+of atom pairs whose final separation is below the 10-Bohr cut-off. For a
+4-body trajectory, ``n_short = 0`` is a double dissociation (``-2``),
+``n_short = 1`` a single dissociation (``-1``, the surviving pair
+identifying which diatom broke), and ``n_short ≥ 2`` is inelastic (both
+original bonds survive) or exchange (labelled by the shortest new pair).
+Single dissociations additionally carry a ``diss_kind`` sub-channel —
+target diatom broke (**P**), projectile diatom broke (**Q**), or
+exchange-assisted — reported as separate rate columns ``k_DD_A`` /
+``k_DD_B`` / ``k_DD_ex`` in ``box.csv`` (for homonuclear AB = CD systems,
+P and Q are statistically identical, which serves as a built-in
+consistency check).
+
+.. note::
+
+   Prior to 2026-07-09 the classifier tested only the single shortest pair
+   distance, so 4-body single dissociation was mis-scored and the double
+   channel never fired. 4-body dissociation results produced before that
+   date must be regenerated. 3-body systems were unaffected.
+
 Per-channel filters
 -------------------
 
@@ -102,7 +122,16 @@ counts per NTC-output window:
 
 with :math:`b_{\max}` the cut-off impact parameter (cross-section
 convention: geometric, not empirical) and :math:`\langle v_{\mathrm{rel}}
-\rangle` the ensemble-averaged relative velocity of the accepted pairs.
+\rangle` the **Maxwell mean** relative speed :math:`\langle g
+\rangle_{\mathrm{MB}}`. Note that the NTC-*accepted* pairs are
+flux-weighted (acceptance :math:`\propto g`), so their sample-mean speed
+is :math:`\langle g^2 \rangle / \langle g \rangle = (3\pi/8)\,\langle g
+\rangle_{\mathrm{MB}}`; the flux enhancement is already carried by the
+*number* of accepted collisions, so the prefactor must be converted back
+by the exact moment ratio :math:`8/3\pi` (using the accepted-pair mean
+directly overestimates every :math:`k` by ≈18 %, temperature- and
+mass-independently — fixed 2026-07-09; ``box.csv`` rate columns written
+before then should be rescaled by :math:`8/3\pi \approx 0.8488`).
 Because the sampled :math:`(b, E_{\mathrm{rel}})` distribution is the
 correct thermal distribution set by the NTC acceptance law, this yields
 the state-specific *thermal* rate coefficient
@@ -112,4 +141,32 @@ at matched bath conditions is used as the primary validation criterion
 [Macdonald2018]_ [GroverSchwartzentruber2019]_ [ManinderO2]_, alongside
 dedicated QCT rate-coefficient studies on nitrogen [FujitaN2]_ and on
 CO + O [FujitaCO]_.
+
+Electronic manifolds and multi-PES sampling
+-------------------------------------------
+
+A heavy-particle collision correlates to several Born–Oppenheimer potential
+energy surfaces — the electronic manifolds of the reactant asymptote. For
+example :math:`\mathrm{C}(^3P) + \mathrm{NO}(^2\Pi)` spans 36 electronic states
+that split into doublet and quartet surfaces such as :math:`2A_1`, :math:`2A_2`
+and :math:`4A_2`. Each PES carries a statistical weight :math:`g_K`, the
+fraction of the reactant electronic manifold correlating to it — a
+(temperature-dependent) ratio of electronic partition functions.
+
+dmsAIR can integrate several PESs in one run. Per collision a single PES is
+drawn with probability proportional to its weight, and the pair is rejected
+with probability :math:`1 - \sum_K g_K` (the remaining manifold is not
+simulated); see :ref:`the multi-PES sampling rule <multi-pes-sampling>` for the
+exact cumulative draw. Two consequences follow:
+
+- the **relaxation rate** carries the factor :math:`\sum_K g_K` — only that
+  fraction of NTC-selected collisions produces dynamics. A single-PES run thus
+  reproduces that PES's *contribution* to the global relaxation, whereas
+  running all correlated PESs reproduces the **global**,
+  electronically-mixed dynamics directly (rather than summing separate runs);
+- the **rate coefficient** :math:`k_{\mathrm{ch}}` above is *unaffected* —
+  both :math:`N_{\mathrm{ch}}` and :math:`N_{\mathrm{att}}` are counted after
+  the PES draw, so the weight cancels and :math:`k_{\mathrm{ch}}` is the
+  full-manifold (per-collision) value; the electronic degeneracy is then
+  applied to the tabulated rate, as in the master-equation pipeline.
 

@@ -54,6 +54,19 @@ For Langevin-capture neutral-neutral scattering the exponent is close to
 :math:`-1/6` (V ∝ r\ :sup:`−6` van der Waals tail). Steeper exponents flag
 a potential-barrier system; flatter flag hard-wall saturation.
 
+bmax convergence study (2026-07)
+--------------------------------
+
+A dedicated b × E sweep (``run/BmaxSweep/``) verified the production
+``bmax`` cut-offs for H3 (H2+H), H4 (H2+H2) and H2He against a
+momentum-transfer criterion: the cut-off must sit beyond the impact
+parameter where ⟨\|χ\|⟩ falls below 1° at the lowest thermally relevant
+collision energy. All three production values were confirmed
+**conservative**; H4 is the tightest margin (at 300 K). The
+``chi(b, E)`` colormaps with the 1° isoline, the power-law fit and the
+selected-``bmax`` cut-off line are produced by the plotters above and
+stored under ``postprocessing/ScatteringMap/Figures/``.
+
 Convergence clipping
 --------------------
 
