@@ -22,6 +22,10 @@ Build
    cd $HOME/WORKSPACE/dmsAIR
    make                # -> build/bin/dmsAIR_HeatBath
 
+Other binaries are built by their own targets: ``make flow1d`` (1D
+Couette/Fourier solver), ``make scatteringmap``, ``make integratorstudy``
+and ``make unittests``.
+
 Run the H3 example
 ------------------
 
@@ -45,3 +49,13 @@ Plot
 
 Open ``postprocessing/Postprocessing/Figures/H3/NoDissociation/Energy.pdf`` to
 see DMS (red dots) overlaid on the ME reference (black lines).
+
+Where to go next
+----------------
+
+- :doc:`running_simulations` — local vs. SLURM launchers, parameter sweeps.
+- :doc:`flow1d` — 1D wall-bounded flows (Couette / Fourier) with
+  ``dmsAIR_Flow1D``.
+- :doc:`/theory/bath_types` — isothermal vs. adiabatic 0D baths.
+- :doc:`/reference/validation` — what has been verified against
+  Master-Equation references, and to what accuracy.

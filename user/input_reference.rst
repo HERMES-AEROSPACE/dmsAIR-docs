@@ -139,7 +139,79 @@ Physics options
      - yes/no
      - yes
      - Strategy (c): persistent atomic :math:`(q, \dot q)` between
-       collisions. Recommended.
+       collisions. Recommended. Setting ``no`` switches to quantum-number
+       carry (the state is re-built from (v, j) each collision) — this
+       became functional on 2026-07-29; earlier binaries ignored the
+       ``no`` setting.
+
+1D domain and walls (Flow1D only)
+---------------------------------
+
+Read by ``dmsAIR_Flow1D``; ignored by the 0D heat bath. See :doc:`flow1d`
+for the solver description, output files and example decks. ``Bath Type``
+must be ``adiabatic``.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 34 10 12 44
+
+   * - Keyword
+     - Type
+     - Default
+     - Description
+   * - ``Domain Length [m]``
+     - real
+     - —
+     - Channel width :math:`L` in the wall-normal direction *x*.
+   * - ``Nb of Cells``
+     - integer
+     - —
+     - Number of uniform cells across the channel (NTC selection and
+       profile sampling).
+   * - ``Wall Left Temperature [K]``
+     - real
+     - —
+     - Left-wall (:math:`x = 0`) Maxwell temperature.
+   * - ``Wall Right Temperature [K]``
+     - real
+     - —
+     - Right-wall (:math:`x = L`) Maxwell temperature. Unequal wall
+       temperatures = Fourier flow.
+   * - ``Wall Left Velocity Y [m/s]``
+     - real
+     - 0
+     - Tangential velocity of the left wall.
+   * - ``Wall Right Velocity Y [m/s]``
+     - real
+     - 0
+     - Tangential velocity of the right wall. Opposite wall velocities =
+       Couette flow.
+   * - ``Wall Accommodation``
+     - real
+     - 1.0
+     - Diffuse-reflection probability :math:`\alpha \in [0, 1]`
+       (1 = fully diffuse, 0 = specular).
+   * - ``Wall Internal Accommodation``
+     - real
+     - 1.0
+     - Probability that a molecule's internal (v, j) state is re-sampled
+       at the wall temperature on a diffuse bounce.
+   * - ``Sampling Start Step``
+     - integer
+     - —
+     - First step included in the time-averaged profiles (discards the
+       startup transient).
+   * - ``Profile Output Interval``
+     - integer
+     - —
+     - Steps between ``profiles.csv`` / ``walls.csv`` rows.
+   * - ``Geometry File``
+     - path
+     - —
+     - Optional: moves the domain and boundary definition to a separate
+       file (``Domain Length X/Y/Z [m]``, ``Nb of Cells X``, per-face
+       type/temperature/velocity/accommodation). The particle weight is
+       then derived from :math:`(P, T_{\mathrm{int}}, V, N_p)`.
 
 Integrator
 ----------

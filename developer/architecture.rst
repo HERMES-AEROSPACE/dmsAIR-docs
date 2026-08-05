@@ -214,6 +214,8 @@ Programs (``app/``)
   ``QCT_SetInitialState``, hands it to CoarseAIR's ``FindState``, and checks
   that ``viba``/``AngMom``/``Eint``/boundedness invert back to the level the
   phase space came from (quantifies label ambiguity near dissociation).
+  Diagnostic tool — no Makefile target yet; compile it against the same
+  objects as the other apps when needed.
 - **UnitTests.F90** — function-level regression driver: exercises pure helper
   routines with deterministic inputs for golden-file comparison in
   ``tests/regression/``.

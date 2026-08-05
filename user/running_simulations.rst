@@ -6,6 +6,11 @@ launcher scripts shipped inside every case directory. The scripts share a
 common input (``dmsAIR.inp`` + level tables + the binary under
 ``build/bin/``); only the launcher and the MPI-fabric settings differ.
 
+This page covers the 0D heat-bath binary (``dmsAIR_HeatBath``), the main
+production solver. For **1D wall-bounded flows** (Couette and Fourier) use
+``dmsAIR_Flow1D`` instead — same input file and launchers, different
+geometry keywords and output files; see :doc:`flow1d`.
+
 Local machine (workstation / laptop)
 ------------------------------------
 

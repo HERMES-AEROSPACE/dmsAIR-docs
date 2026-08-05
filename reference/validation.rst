@@ -126,6 +126,41 @@ suite.
    be regenerated; single-dissociation sub-channels (target / projectile /
    exchange-assisted) are now reported separately in ``box.csv``.
 
+1D wall-bounded flows (Flow1D)
+------------------------------
+
+The 1D solver (:doc:`/user/flow1d`) was verified along a chain of
+independent checks rather than against a single reference, since no
+state-resolved ME analogue exists for wall-bounded flow:
+
+- **Internal consistency.** Fourier (H2/He, Kn ≈ 0.2, walls 300/1000 K):
+  the three translational temperature components collapse onto one smooth
+  T\ :sub:`tr`\ (x); q\ :sub:`x` is spatially uniform and balances both wall
+  tallies to ≈1 % with q\ :sub:`L` ≈ −q\ :sub:`R`; n·T is constant. Couette
+  (∓500 m/s walls): τ\ :sub:`xy` uniform in the gas and equal to both wall
+  tallies to ≈6 %, with ~135 m/s velocity slip per wall.
+- **Free-molecular asymptote.** With collisions effectively switched off,
+  the solver reproduces every analytic two-stream FM value to 1–2.5 %
+  (Couette τ and p, Fourier q — including the quantum rotational effusion
+  contribution).
+- **Cross-code agreement.** SPARTA and PICLas agree with each other within
+  noise; dmsAIR joins them at Kn = 10 (τ ratio 0.98) and departs
+  monotonically as collisionality increases (τ ratio 0.75 at Kn = 2,
+  0.61 at Kn = 0.5).
+- **bmax convergence.** Re-running Fourier at b\ :sub:`max` = 7/10/13 Bohr
+  leaves q flat, ruling out grazing-collision truncation as the cause of
+  that departure.
+
+The DMS-below-DSMC heat flux at finite Kn is therefore a physical result,
+not a numerical artifact: it is the **rotational conduction channel**
+(ab-initio cross-sections with a realistically slow H2 rotational
+relaxation, versus the ~31 % share carried by a VHS kernel at
+Z\ :sub:`rot` = 100). Against the ASML rarefied-H2 experiments the DMS
+points agree within the ±12–15 % local statistical noise; note that at the
+fitted accommodation α ≈ 0.29 the wall dominates and dilutes the rotational
+model to 3–6 % of the heat flux, which is why classical DSMC also matched
+those experiments.
+
 Regression test suite
 ---------------------
 
