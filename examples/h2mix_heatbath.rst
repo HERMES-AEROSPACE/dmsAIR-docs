@@ -89,6 +89,40 @@ population from ``X = 0``, which switches on H₂+H (H3) collisions
 dynamically as the mixture evolves — the reason the H species must be
 declared even at zero initial fraction.
 
+Enabled processes, pair by pair
+-------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 18 58
+
+   * - Pair
+     - Processes
+   * - H₂ + H (H3)
+     - rovibrational transfer; homogeneous exchange (whole-quantum atom
+       swap, ``gnuc`` bookkeeping); dissociation → 3H (Dissociation
+       regime)
+   * - H₂ + H₂ (H4)
+     - rovibrational + V–V transfer (both molecules' states committed);
+       homogeneous 4-body exchange; single dissociation → H₂ + 2H;
+       double dissociation → 4H (``Allow Double Dissociation = yes``)
+   * - H₂ + He (H2He)
+     - rovibrational transfer only (no exchange channel); dissociation
+       → 2H + He
+
+**This deck is the fully-closed product-kinetics construction for
+hydrogen**: every H atom produced by any of the three pairs' dissociation
+channels immediately becomes a live collision partner through the H3
+pair — the situation the single-pair
+:doc:`H4 </examples/h4_heatbath>` and
+:doc:`H2+He </examples/h2he_heatbath>` decks cannot represent (their
+product atoms are spectators). The one channel no deck can close is
+recombination: atoms never re-form molecules (three-body process outside
+the binary-collision QCT framework), so at long times the Dissociation
+regime drains monotonically toward full dissociation rather than a true
+chemical equilibrium. See :doc:`CO + N(4S) </examples/con4s_heatbath>`
+for the general product-kinetics recipe.
+
 Running
 -------
 

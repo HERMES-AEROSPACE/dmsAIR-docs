@@ -67,6 +67,7 @@ databases:
    examples/h4_heatbath
    examples/h2he_heatbath
    examples/h2mix_heatbath
+   examples/flow1d_couette
    examples/scattering_map
    examples/integrator_study
 

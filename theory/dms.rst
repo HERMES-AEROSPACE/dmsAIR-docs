@@ -152,21 +152,62 @@ At each time step, dmsAIR performs the following operations:
    measured directly from the particle ensemble — no empirical models
    involved.
 
-Strategy (c) — persistent phase-space propagation
---------------------------------------------------
+Internal-state representation — the three strategies
+----------------------------------------------------
 
-dmsAIR follows the *strategy (c)* formulation of
-[GroverSchwartzentruber2019]_: each molecular particle carries its full
-atomic :math:`(q, \dot q)` between consecutive collisions rather than
-being regenerated from the quantum numbers :math:`(v, j)` at the start of
-every event. Only an isotropic random rotation is applied to de-bias the
-orientation. This choice avoids the systematic "quantisation round-trip"
-energy drift that affects strategies (a) and (b), in which the repeated
-coordinate → :math:`(v, j)` → coordinate cycle biases the ensemble over
-long relaxation times. Strategy (c) preserves the microscopic dynamics
-over the whole duration of a heat-bath relaxation and is the
-recommended configuration for every production case distributed with
-dmsAIR.
+Between two collisions a DMS particle must *remember* its internal state.
+Schwartzentruber and co-workers [SchwartzentruberEtAl2017]_
+[GroverSchwartzentruber2019]_ identify three options for what that state
+of record can be:
+
+**Strategy (a) — quantum numbers.** The particle stores the quantised
+rovibrational label :math:`(v, j)`; at each collision the full atomic
+phase space is *regenerated* from that level (random vibrational phase
+and orientation, the standard QCT initialisation), and the post-collision
+outcome is quantised back onto the ladder. This is the representation of
+the original Fujita lineage [Fujita2002]_. Internal energy is an exact
+ladder eigenvalue between collisions, which makes the representation
+directly consistent with state-to-state master equations and forbids
+*sub-quantum* energy accumulation by construction. Its costs: the
+regeneration erases vibrational-phase and orientation correlations, and
+snapping the outcome energy onto the ladder moves up to half a level
+spacing per collision — which must be compensated (or accepted as an
+error) in the energy budget.
+
+**Strategy (b) — continuous internal energies.** The particle stores the
+continuous energies :math:`(E_{\mathrm{rot}}, E_{\mathrm{vib}})` and the
+phase space is regenerated consistently with them at each collision. This
+avoids the quantisation of (a) while still discarding phase information
+at every regeneration.
+
+**Strategy (c) — persistent phase space.** The particle carries its full
+atomic :math:`(q, \dot q)` between consecutive collisions; nothing is
+regenerated, and only an isotropic random rotation is applied to de-bias
+the orientation. The microscopic dynamics — vibrational phase and the
+exact continuous internal energy — survive the whole relaxation, and
+there is no quantisation round-trip drift.
+
+**What dmsAIR adopts.** dmsAIR implements strategies (a) and (c) and
+adopts **strategy (c) as the production default**
+(``Propagate Phase Space = yes``), following
+[GroverSchwartzentruber2019]_; it is the recommended configuration for
+every production case distributed with dmsAIR. Strategy (a) is available
+as *quantum-number carry* (``Propagate Phase Space = no``) and is the
+representation on which :doc:`Gaussian binning </theory/gaussian_binning>`
+operates (``Gaussian Binning = yes`` forces it and adds an
+energy-conserving translational compensation for the snap). Strategy (b)
+is not implemented.
+
+The two implemented representations agree wherever collisions move whole
+quanta — exchange-dominated systems and heavy diatomics at
+:math:`T \gtrsim \theta_v`. They diverge precisely in the near-threshold
+regime of a stiff molecule with a weak collider
+(:math:`T \lesssim \theta_v`, e.g. H\ :sub:`2` + He): there, strategy (c)
+lets classically allowed *fractions* of a vibrational quantum accumulate
+across collisions — a channel quantum mechanics forbids — while strategy
+(a) suppresses it by construction. Running both arms, and closing the
+residual gap with Gaussian binning, is how dmsAIR bounds the
+representation error of a result.
 
 Macroscopic observables
 -----------------------

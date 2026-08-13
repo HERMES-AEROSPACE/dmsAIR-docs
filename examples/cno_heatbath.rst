@@ -79,6 +79,23 @@ reactions while blocking the NO-producing channel on *both* collision
 pairs — something the global ``Allow Exchange Arr N`` form cannot express,
 because it sets every pair identically.
 
+The ``_Products`` suffix means **product kinetics are simulated**: the
+deck declares all six species (products at ``X = 0``) and two collision
+pairs —
+
+.. code-block:: text
+
+   Nb of Collision Pairs = 2
+   # P1: CN + O   (reactants)  — CN relaxation + forward exchange
+   # P2: CO + N   (products)   — CO relaxation + back-exchange
+
+so exchange products are live particles: they thermalise through their
+own inelastic collisions and feed the back-reaction, closing the
+forward/backward loop. Without the P2 declaration they would be
+composition-only spectators. The full recipe (and the limits — no
+recombination, no product–product pairs unless declared) is in the
+:doc:`CO + N(4S) example </examples/con4s_heatbath>`.
+
 Contrast this with **homogeneous exchange** (H\ :sub:`2` + H,
 H\ :sub:`2` + H\ :sub:`2`): there the atom swap returns the *same* chemical
 species, the particle identity is preserved, and the event is handled as an
@@ -91,10 +108,16 @@ Dissociation
 
 ``Allow Dissociation = yes`` is the only dissociation gate (the historical
 ``Allow Dissociation Direct`` / ``Indirect Arr N`` keys are accepted but
-ignored). Whether a dissociation event was *direct* or *exchange-assisted*
-is classified per event from the per-pair trajectory record (which
-atom-pairs transiently approached a bound configuration) and reported in
-the output — it is a diagnostic, not an input switch.
+ignored). It applies to **every declared pair**, so the
+``Exchange*_Dissociation_Products`` decks open two break-up channels
+(CN + O → C + N + O on P1, CO + N → C + O + N on P2), while
+``TotalDissociation`` (one pair, exchange off) lumps the dissociation
+flux into the single channel the ME total-dissociation variant expects.
+Whether an event was *direct* or *exchange-assisted* is classified per
+event from the per-pair trajectory record (which atom-pairs transiently
+approached a bound configuration) and reported in the output — it is a
+diagnostic, not an input switch. The atomic fragments are spectators in
+all regimes (no recombination).
 
 Deck highlights (``CN+O_Inelastic/10000K``)
 -------------------------------------------

@@ -39,6 +39,18 @@ The ``_2D_`` tag records that the *atomic product* is tracked in the ²D
 state, keeping the electronic bookkeeping consistent with the ME reference
 on the doublet surface.
 
+As in the other partner systems, the ``_Products`` decks declare **two
+collision pairs** — CO + N (reactants) and the product pair (CN + O or
+NO + C) at ``X = 0`` — so **product kinetics are enabled**: products
+relax through their own inelastic collisions and feed the back-reaction.
+The ``Dissociation`` variants open break-up on both pairs;
+``TotalDissociation`` reduces to one pair with exchange off (lumped
+channel, ME-parity). Atomic fragments are spectators throughout — no
+recombination. See :doc:`CO + N(4S) </examples/con4s_heatbath>` for the
+per-regime deck blocks and the recipe for enabling product kinetics in a
+new deck; the construction here is identical apart from the doublet
+degeneracies.
+
 Deck highlights (``CO+N2D_Inelastic/10000K``)
 ---------------------------------------------
 

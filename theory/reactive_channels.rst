@@ -92,13 +92,6 @@ exchange-assisted — reported as separate rate columns ``k_DD_A`` /
 P and Q are statistically identical, which serves as a built-in
 consistency check).
 
-.. note::
-
-   Prior to 2026-07-09 the classifier tested only the single shortest pair
-   distance, so 4-body single dissociation was mis-scored and the double
-   channel never fired. 4-body dissociation results produced before that
-   date must be regenerated. 3-body systems were unaffected.
-
 Per-channel filters
 -------------------
 

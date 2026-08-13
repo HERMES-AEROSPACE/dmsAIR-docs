@@ -44,6 +44,63 @@ Regime mapping
    * - ``totaldissociation``
      - Allow Exchange Arr 1 = no, Allow Diss = yes → single dissociation channel
 
+.. note::
+
+   The current ME-consistent generation of these cases (per-temperature
+   electronic degeneracies, product-pair decks) lives under
+   ``run/Verification/NO+C_<regime>/<T>/`` alongside the
+   :doc:`partner systems </examples/cno_heatbath>`; the tree above is the
+   original PES-resolved sweep.
+
+Regime deck highlights and enabled processes
+--------------------------------------------
+
+**Inelastic** (single pair, no reactions):
+
+.. code-block:: text
+
+   Allow Dissociation   = no
+   Allow Exchange Arr 1 = no
+   Nb of Collision Pairs = 1        # NO + C
+
+Only NO(v,J) + C → NO(v′,J′) + C energy transfer is enabled.
+
+**Exchange with product kinetics** (``NO+C_Exchange1_Products``):
+
+.. code-block:: text
+
+   Allow Exchange Arr 1 = yes
+   Allow Exchange P1 Arr 2 = yes   # NO+C -> CN+O   (desired forward)
+   Allow Exchange P1 Arr 3 = no    # NO+C -> CO+N   (parasitic)
+   Allow Exchange P2 Arr 2 = no    # CN+O -> CO+N   (parasitic — reverse)
+   Allow Exchange P2 Arr 3 = yes   # CN+O -> NO+C   (desired back)
+
+   Species: NO (X=0.5), C (X=0.5), CN, CO, N, O (all X=0)
+   Nb of Collision Pairs = 2
+   # P1: NO + C  (reactants)      # P2: CN + O  (products)
+
+Enabled processes: NO relaxation + forward exchange on P1; CN relaxation
++ back-exchange on P2. **Note the arrangement flip**: the desired channel
+is ``Arr 2`` on P1 but ``Arr 3`` on P2 — the arrangement index numbers
+atom-pair slots *within* each pair, so the same index is a different
+reaction in different pairs. This is exactly why the per-pair filter
+form exists; a global ``Allow Exchange Arr N`` cannot express this
+selection.
+
+**Dissociation** variants add ``Allow Dissociation = yes`` on top of the
+same pair structure (break-up opens on every declared pair);
+``TotalDissociation`` reduces to one pair with exchange off, giving the
+single lumped dissociation channel that matches the ME
+total-dissociation variant. Direct vs exchange-assisted is classified
+per event from the trajectory record (diagnostic only).
+
+**Product kinetics:** exchange products relax and back-react only
+because the deck declares the product pair (P2) — without it they are
+composition-only spectators. Dissociation fragments (atoms) are always
+spectators: dmsAIR has no recombination. The full recipe for enabling
+product kinetics in a new deck is in the
+:doc:`CO + N(4S) example </examples/con4s_heatbath>`.
+
 Running a single case
 ---------------------
 

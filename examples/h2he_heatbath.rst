@@ -99,10 +99,30 @@ Dissociation
 ------------
 
 ``Dissociation/<T>K`` decks set ``Allow Dissociation = yes`` (single master
-switch — the per-pathway keys are deprecated no-ops). With no exchange
-channel, every dissociation event here is *direct* by construction; the
-per-event direct/exchange-assisted classification in the output is only
-informative for systems with open exchange channels.
+switch — the per-pathway keys are deprecated no-ops), enabling
+H₂ + He → 2H + He:
+
+.. code-block:: text
+
+   Allow Dissociation   = yes
+   Allow Exchange Arr 1 = no
+
+   Species: H2 (X=0.5), He (X=0.5), H (X=0.0)
+   Nb of Collision Pairs = 1        # H2 + He only
+
+With no exchange channel, every dissociation event here is *direct* by
+construction; the per-event direct/exchange-assisted classification in
+the output is only informative for systems with open exchange channels.
+
+**Product kinetics:** the H atoms are declared (``X = 0``) and tracked in
+the composition, but with only the H₂ + He pair declared they are
+**spectators** — they never collide. To let dissociation products
+participate (H₂ + H collisions, and their exchange channel), add the H3
+pair to the deck: that is precisely the
+:doc:`hydrogen mixture </examples/h2mix_heatbath>` construction. There is
+no recombination in any deck (three-body process, outside the
+binary-collision framework); see :doc:`CO + N(4S)
+</examples/con4s_heatbath>` for the general recipe and limits.
 
 Running and analysis
 --------------------
