@@ -17,7 +17,8 @@ Case tree
    run/Hydrogen/H2He/Dissociation/<T>K/
 
 with ``T`` ∈ {2500, 5000, 7500, 10000, 15000, 20000, 25000}. The ``_GB``
-siblings are identical decks with Gaussian binning enabled.
+siblings are the Gaussian-binning arm: same decks with GB enabled and
+``bmax`` reduced to 15 Bohr (Np = 20000 everywhere).
 
 No exchange channel
 -------------------
@@ -66,7 +67,17 @@ contribute measurably to rotational relaxation at high collision energies.
 The Gaussian-binning arm
 ------------------------
 
-The ``<T>K_GB`` decks add exactly two lines:
+The GB campaign runs **three families at every temperature**, all with
+``Nb of Particles = 20000`` and ``Collision Pair bmax [Bohr] = 15.0``:
+
+- ``H2He/Inelastic/<T>K_GB`` — the system under test;
+- ``H3/Inelastic/<T>K_GB`` — H₂ + H *with* exchange: the null control
+  (whole-quantum exchange should make GB a no-op);
+- ``H3/Inelastic_noExch/<T>K_GB`` — H₂ + H with exchange *discarded*:
+  isolates the non-reactive channel of the reactive system, which should
+  behave H₂+He-like under GB.
+
+Each ``_GB`` deck adds:
 
 .. code-block:: text
 
