@@ -131,10 +131,28 @@ Physics options
    * - ``Allow Exchange Arr N``
      - yes/no
      - yes
-     - Per-arrangement exchange filter for :math:`N \in \{2, 3, 4, 5,
-       6\}`. Set to ``no`` to silence channel :math:`N` (e.g. ``Arr 3 =
-       no`` keeps only CN + O in NO + C). See
-       :doc:`/theory/reactive_channels`.
+     - Global per-arrangement exchange filter for :math:`N \in \{2, 3, 4,
+       5, 6\}` — sets **all** collision pairs identically. Set to ``no``
+       to silence channel :math:`N`. See :doc:`/theory/reactive_channels`.
+   * - ``Allow Exchange P<n> Arr <m>``
+     - yes/no
+     - yes
+     - **Per-pair** exchange filter (recommended over the global form for
+       mixtures and partner systems). The arrangement index numbers the
+       atom-pair slots *within* each collision pair, so the same ``Arr m``
+       is a *different physical reaction* in different pairs (in CNO:
+       P1 ``Arr 2`` is CN+X → CO+atom while P1 ``Arr 3`` is CN+X →
+       NO+atom). A global filter cannot express "block the parasitic
+       channel but keep the desired back-reaction" — this one can. See
+       the :doc:`/examples/cno_heatbath` example.
+   * - ``Allow Dissociation Direct`` / ``Allow Dissociation Indirect Arr N``
+     - yes/no
+     - (no-op)
+     - **Deprecated.** Accepted for backward compatibility but ignored:
+       only the ``Allow Dissociation`` master switch is honoured. The
+       direct vs exchange-assisted distinction is now a *diagnostic*
+       (classified per event from the per-pair trajectory record and
+       reported in the output), not an input gate.
    * - ``Propagate Phase Space``
      - yes/no
      - yes
@@ -143,6 +161,27 @@ Physics options
        carry (the state is re-built from (v, j) each collision) — this
        became functional on 2026-07-29; earlier binaries ignored the
        ``no`` setting.
+   * - ``Gaussian Binning``
+     - yes/no
+     - no
+     - Gaussian-binning collision acceptance (Bonnet–Rayez GB in
+       accept/reject form): outcomes whose continuous vibrational action
+       lands mid-ladder are discounted, restoring near-threshold
+       quantisation that plain histogram binning breaks. Forces
+       quantum-number carry ON, and pays the snap-to-level energy from
+       the products' relative translation (energy-conserving). See
+       :doc:`/theory/gaussian_binning`.
+   * - ``GB Epsilon Vib``
+     - real
+     - 0.10
+     - Gaussian width in vibrational action [quanta] for
+       ``Gaussian Binning = yes``.
+   * - ``GB Epsilon Rot``
+     - real
+     - 0.0
+     - Gaussian width in rotational action. ``0`` (default) leaves
+       rotation histogram-binned; a nonzero value adds a second
+       acceptance factor (statistically expensive).
 
 1D domain and walls (Flow1D only)
 ---------------------------------

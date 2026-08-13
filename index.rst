@@ -53,6 +53,7 @@ databases:
    theory/integrators
    theory/bath_types
    theory/reactive_channels
+   theory/gaussian_binning
 
 .. toctree::
    :maxdepth: 2
@@ -60,7 +61,12 @@ databases:
 
    examples/h3_heatbath
    examples/noc_heatbath
+   examples/cno_heatbath
+   examples/con2d_heatbath
+   examples/con4s_heatbath
    examples/h4_heatbath
+   examples/h2he_heatbath
+   examples/h2mix_heatbath
    examples/scattering_map
    examples/integrator_study
 
