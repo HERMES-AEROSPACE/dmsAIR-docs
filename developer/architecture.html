@@ -1,0 +1,681 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture Reference &mdash; dmsAIR</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=eef4a3d2"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Adding a New Collision System" href="adding_a_system.html" />
+    <link rel="prev" title="Bibliography" href="../reference/bibliography.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #1f3b5a" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            dmsAIR
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user/getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started.html#run-the-h3-example">Run the H3 example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started.html#plot">Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/installation.html#coarseair-dependency">CoarseAIR dependency</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/installation.html#required-coarseair-patches">Required CoarseAIR patches</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/installation.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/installation.html#build-artefacts">Build artefacts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/running_simulations.html">Running Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/running_simulations.html#local-machine-workstation-laptop">Local machine (workstation / laptop)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/running_simulations.html#cluster-with-a-slurm-scheduler">Cluster with a SLURM scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/running_simulations.html#choosing-between-the-two-modes">Choosing between the two modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/running_simulations.html#adaptive-parameter-sweep-launchdms-py">Adaptive parameter sweep (<code class="docutils literal notranslate"><span class="pre">launchDMS.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/running_simulations.html#output-layout">Output layout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/input_reference.html">Input File Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/input_reference.html#thermodynamics">Thermodynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/input_reference.html#numerics">Numerics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/input_reference.html#physics-options">Physics options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/input_reference.html#d-domain-and-walls-flow1d-only">1D domain and walls (Flow1D only)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/input_reference.html#integrator">Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/input_reference.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/input_reference.html#species-block">Species block</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/input_reference.html#collision-pair-block">Collision-pair block</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/input_reference.html#pes-declarations-per-pair">PES declarations (per pair)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/input_reference.html#product-molecule-declarations-per-pair">Product-molecule declarations (per pair)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/input_reference.html#ode-trajectory-parameters-per-pair">ODE / trajectory parameters (per pair)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/input_reference.html#quantisation-parameters-per-pair">Quantisation parameters (per pair)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/input_reference.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/output_reference.html">Output File Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/output_reference.html#box-csv-layout">box.csv layout</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../user/output_reference.html#block-1-bath-state">Block 1 — Bath state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/output_reference.html#block-2-per-species-state">Block 2 — Per-species state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/output_reference.html#block-3-rate-coefficients-dissociation-energy-coupling-per-pair">Block 3 — Rate coefficients + dissociation-energy coupling (per pair)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../user/output_reference.html#block-4-trajectory-diagnostic">Block 4 — Trajectory diagnostic</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../user/output_reference.html#pop-csv-layout">pop.csv layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/output_reference.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/flow1d.html">1D simulations — Flow1D (Couette / Fourier)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/flow1d.html#wall-model">Wall model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/flow1d.html#building-and-running">Building and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/flow1d.html#input-keywords">Input keywords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/flow1d.html#output-files">Output files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/flow1d.html#example-decks-and-verification">Example decks and verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/flow1d.html#v1-limitations">v1 limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/postprocessing.html">Post-processing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/postprocessing.html#h3-dms-vs-me-comparison">H3 DMS-vs-ME comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/postprocessing.html#cno-dms-vs-me-comparison">CNO DMS-vs-ME comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/postprocessing.html#scattering-maps">Scattering maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/postprocessing.html#verification-suite-dms-vs-me">Verification suite (DMS vs ME)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/postprocessing.html#population-inspection">Population inspection</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Theory Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../theory/dms.html">Direct Molecular Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#historical-context">Historical context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#conceptual-definition">Conceptual definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#ingredients-required-by-dms">Ingredients required by DMS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#the-dmsair-loop">The dmsAIR loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#internal-state-representation-the-three-strategies">Internal-state representation — the three strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#macroscopic-observables">Macroscopic observables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/qct.html">Quasi-Classical Trajectories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#hamiltonian-formulation">Hamiltonian formulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#initial-state-sampling">Initial-state sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#integration-and-termination">Integration and termination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#arrangement-classification">Arrangement classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#semiclassical-quantisation">Semiclassical quantisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#energy-conservation-diagnostic">Energy-conservation diagnostic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/ntc.html">No-Time-Counter (NTC) Pair Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/ntc.html#sampling-law">Sampling law</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/ntc.html#cross-section-convention">Cross-section convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/ntc.html#parallel-implementation">Parallel implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/ntc.html#selecting-the-cut-off-impact-parameter">Selecting the cut-off impact parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/integrators.html">Trajectory Integrators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/integrators.html#benchmark">Benchmark</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/bath_types.html">Heat Bath Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/bath_types.html#isothermal-bath">Isothermal bath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/bath_types.html#adiabatic-bath">Adiabatic bath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/bath_types.html#density-and-pressure-convention">Density and pressure convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/bath_types.html#decoupling-between-translational-and-internal-sampling">Decoupling between translational and internal sampling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/reactive_channels.html">Reactive Channels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/reactive_channels.html#arrangement-codes">Arrangement codes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../theory/reactive_channels.html#three-body-system">Three-body system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../theory/reactive_channels.html#four-body-system">Four-body system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/reactive_channels.html#per-channel-filters">Per-channel filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/reactive_channels.html#rate-coefficient-measurement">Rate coefficient measurement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/reactive_channels.html#electronic-manifolds-and-multi-pes-sampling">Electronic manifolds and multi-PES sampling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/gaussian_binning.html">Gaussian binning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#why">Why</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#what">What</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#representation-and-energy-conservation">Representation and energy conservation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#normalisation-caveat">Normalisation caveat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#diagnostics">Diagnostics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#input-keys">Input keys</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/h3_heatbath.html">H<sub>2</sub> + H heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#regime-1-inelastic-with-exchange">Regime 1 — Inelastic (with exchange)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#regime-2-inelastic-only-inelastic-noexch">Regime 2 — Inelastic-only (<code class="docutils literal notranslate"><span class="pre">Inelastic_noExch</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#regime-3-dissociation">Regime 3 — Dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#product-kinetics">Product kinetics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#running-and-comparison">Running and comparison</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/noc_heatbath.html">NO + C heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#regime-mapping">Regime mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#regime-deck-highlights-and-enabled-processes">Regime deck highlights and enabled processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#running-a-single-case">Running a single case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#launching-a-full-sweep">Launching a full sweep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/cno_heatbath.html">CN + O heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#heterogeneous-exchange-and-how-channels-are-selected">Heterogeneous exchange and how channels are selected</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#dissociation">Dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#deck-highlights-cn-o-inelastic-10000k">Deck highlights (<code class="docutils literal notranslate"><span class="pre">CN+O_Inelastic/10000K</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/con2d_heatbath.html">CO + N(²D) heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#channel-selection">Channel selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#deck-highlights-co-n2d-inelastic-10000k">Deck highlights (<code class="docutils literal notranslate"><span class="pre">CO+N2D_Inelastic/10000K</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#comparison-caveats">Comparison caveats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/con4s_heatbath.html">CO + N(⁴S) heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#regime-1-inelastic">Regime 1 — Inelastic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#regime-2-exchange-exchange1-4s-products">Regime 2 — Exchange (<code class="docutils literal notranslate"><span class="pre">Exchange1_4S_Products</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#regime-3-exchange-dissociation">Regime 3 — Exchange + dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#product-kinetics-what-is-and-is-not-simulated">Product kinetics: what is and is not simulated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/h4_heatbath.html">H<sub>2</sub> + H<sub>2</sub> heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#regime-1-inelastic">Regime 1 — Inelastic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#regime-2-dissociation-single">Regime 2 — Dissociation (single)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#regime-3-double-dissociation">Regime 3 — Double dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#product-kinetics">Product kinetics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/h2he_heatbath.html">H₂ + He heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#no-exchange-channel">No exchange channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#deck-highlights-inelastic-5000k">Deck highlights (<code class="docutils literal notranslate"><span class="pre">Inelastic/5000K</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#the-gaussian-binning-arm">The Gaussian-binning arm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#dissociation">Dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#running-and-analysis">Running and analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/h2mix_heatbath.html">Hydrogen mixture heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#mixture-definition">Mixture definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#homogeneous-exchange">Homogeneous exchange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#dissociation-direct-exchange-assisted-and-double">Dissociation: direct, exchange-assisted, and double</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#enabled-processes-pair-by-pair">Enabled processes, pair by pair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/flow1d_couette.html">1D Couette and Fourier flows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/flow1d_couette.html#couette-flow">Couette flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/flow1d_couette.html#fourier-flow">Fourier flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/flow1d_couette.html#what-the-solver-does-with-this">What the solver does with this</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/flow1d_couette.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scattering_map.html">Scattering Map — selecting <code class="docutils literal notranslate"><span class="pre">bmax</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#running">Running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#output-columns">Output columns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#bmax-convergence-study-2026-07">bmax convergence study (2026-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#convergence-clipping">Convergence clipping</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/integrator_study.html">Integrator Study</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/integrator_study.html#running">Running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/integrator_study.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/integrator_study.html#post-processing">Post-processing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/about.html">About dmsAIR</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/about.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/about.html#related-hermes-codes">Related HERMES codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/about.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/about.html#citing-dmsair">Citing dmsAIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/validation.html">Validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#h2-h-3-body-homogeneous">H<sub>2</sub> + H (3-body, homogeneous)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#cno-systems-3-body">CNO systems (3-body)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#multi-pes-and-coupled-reactive-chemistry-no-c-cn-o">Multi-PES and coupled reactive chemistry (NO+C / CN+O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#h2-h2-4-body">H<sub>2</sub> + H<sub>2</sub> (4-body)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#d-wall-bounded-flows-flow1d">1D wall-bounded flows (Flow1D)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#regression-test-suite">Regression test suite</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/bibliography.html">Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#reviews">Reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#direct-molecular-simulation">Direct Molecular Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#direct-simulation-monte-carlo">Direct Simulation Monte Carlo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#master-equation-comparison">Master equation comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#molecular-dynamics-methods">Molecular dynamics methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#potential-energy-surfaces">Potential Energy Surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#coarseair">CoarseAIR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#plato">PLATO</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#source-tree-layout">Source-tree layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-reference">Module reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#top-level-src">Top-level <code class="docutils literal notranslate"><span class="pre">src/</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src-dsmc"><code class="docutils literal notranslate"><span class="pre">src/DSMC/</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src-measurement"><code class="docutils literal notranslate"><span class="pre">src/Measurement/</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src-particles"><code class="docutils literal notranslate"><span class="pre">src/Particles/</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#programs-app">Programs (<code class="docutils literal notranslate"><span class="pre">app/</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#collision-frame-alignment-persistent-velocity-gases">Collision-frame alignment (persistent-velocity gases)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#collision-pipeline">Collision pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mpi-model">MPI model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adding_a_system.html">Adding a New Collision System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adding_a_system.html#verify-coarseair-support">1. Verify CoarseAIR support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_a_system.html#locate-the-levels-files">2. Locate the levels files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_a_system.html#write-the-case-dmsair-inp">3. Write the case <code class="docutils literal notranslate"><span class="pre">dmsAIR.inp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_a_system.html#calibrate-bmax">4. Calibrate <code class="docutils literal notranslate"><span class="pre">bmax</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_a_system.html#smoke-test-a-short-run">5. Smoke-test a short run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_a_system.html#generate-the-case-tree">6. Generate the case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_a_system.html#heteronuclear-specific-verify-both-exchange-channels">7. Heteronuclear-specific: verify both exchange channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adding_a_system.html#validate-against-me-optional-but-recommended">8. Validate against ME (optional but recommended)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="regression_tests.html">Regression Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="regression_tests.html#running">Running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_tests.html#test-inventory">Test inventory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="regression_tests.html#app-level-cases">App-level cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="regression_tests.html#unit-tests-unittest-core">Unit tests (<code class="docutils literal notranslate"><span class="pre">unittest_core</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="regression_tests.html#re-blessing">Re-blessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_tests.html#adding-a-new-app-level-test">Adding a new app-level test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_tests.html#adding-a-new-unit-test">Adding a new unit test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_tests.html#tests-deliberately-not-yet-in-the-suite">Tests deliberately not yet in the suite</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #1f3b5a" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">dmsAIR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Architecture Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/developer/architecture.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="architecture-reference">
+<h1>Architecture Reference<a class="headerlink" href="#architecture-reference" title="Link to this heading"></a></h1>
+<p>This page documents the current state of the dmsAIR source tree: the module
+layout, every module’s responsibility and its public routines, the
+collision pipeline call chain, and the MPI execution model. It reflects the
+code as it actually exists (18 source files — 6 programs in <code class="docutils literal notranslate"><span class="pre">app/</span></code> and 12
+modules in <code class="docutils literal notranslate"><span class="pre">src/</span></code>).</p>
+<section id="source-tree-layout">
+<h2>Source-tree layout<a class="headerlink" href="#source-tree-layout" title="Link to this heading"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dmsAIR/
+├── app/                              # Executables (one Fortran program per folder)
+│   ├── HeatBath/HeatBath.F90         #   dmsAIR_HeatBath — main production binary
+│   ├── Flow1D/Flow1D.F90             #   1D wall-bounded DMS (Couette / Fourier)
+│   ├── ScatteringMap/ScatteringMap.F90       #   χ(b, E) grid scans
+│   ├── IntegratorStudy/IntegratorStudy.F90   #   integrator / step-size bench
+│   ├── StateCheck/StateCheck.F90     #   state-reconstruction contract test
+│   └── UnitTests/UnitTests.F90       #   function-level regression driver
+├── src/
+│   ├── DMS_Input_Class.F90           # Input parser, dmsAIR.inp keywords
+│   ├── Checkpoint_Module.F90         # Restart serialise / restore
+│   ├── Signal_Handler.F90            # SIGUSR1/SIGTERM clean-exit handlers
+│   ├── Timer_Module.F90              # Named-section wall-clock profiler
+│   ├── PrintGuard.F90                # Rank-0 print gate
+│   ├── DSMC/
+│   │   ├── DMS_Collision_Class.F90   # Collision-object driver (Execute_QN)
+│   │   ├── QCT_Collision_Module.F90  # QCT trajectory mechanics, χ scattering
+│   │   ├── Integrator_Class.F90      # BS / VV integrator abstraction
+│   │   └── NTC_Class.F90             # No-Time-Counter pairing
+│   ├── Measurement/
+│   │   └── Measurement_Class.F90     # box.csv writer, Tint/Tvib/Trot, rates
+│   └── Particles/
+│       ├── Particle_Class.F90        # Particle_Type + scatter helpers
+│       ├── Initialise_Class.F90      # Boltzmann / mixture initialisers
+│       └── LevelsDB_Module.F90       # Rovibrational levels DB I/O
+├── run/                              # Case tree (one case = one dmsAIR.inp folder)
+├── postprocessing/                   # Python analysis tools
+├── docs/                             # Sphinx source (this site)
+├── build/                            # Build artifacts (gitignored)
+└── Makefile
+</pre></div>
+</div>
+</section>
+<section id="module-reference">
+<h2>Module reference<a class="headerlink" href="#module-reference" title="Link to this heading"></a></h2>
+<section id="top-level-src">
+<h3>Top-level <code class="docutils literal notranslate"><span class="pre">src/</span></code><a class="headerlink" href="#top-level-src" title="Link to this heading"></a></h3>
+<p><strong>DMS_Input_Class.F90</strong> — parses <code class="docutils literal notranslate"><span class="pre">dmsAIR.inp</span></code>, holds the species and
+collision-pair configuration, and populates the CoarseAIR input record.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Read_DMS_Input</span></code> (bound <code class="docutils literal notranslate"><span class="pre">%Read</span></code>) — parse the keyword file into a
+<code class="docutils literal notranslate"><span class="pre">DMS_Input_Type</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Populate_CAInput</span></code> — fill a CoarseAIR <code class="docutils literal notranslate"><span class="pre">Input_Type</span></code> from a chosen
+collision pair (system, DB path, ODE/quantization params, PESs).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Find_Collision_Pair</span></code> — collision-pair index for an ordered species pair
+(order-independent; 0 if none).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Expand_Env_Vars</span></code> / <code class="docutils literal notranslate"><span class="pre">Set_Environment_Variable</span></code> — path <code class="docutils literal notranslate"><span class="pre">$VAR</span></code> expansion
+and process env-var setting.</p></li>
+<li><p>Types: <code class="docutils literal notranslate"><span class="pre">Species_Def_Type</span></code>, <code class="docutils literal notranslate"><span class="pre">CollisionPair_Def_Type</span></code>, <code class="docutils literal notranslate"><span class="pre">DMS_Input_Type</span></code>.</p></li>
+</ul>
+<p><strong>Checkpoint_Module.F90</strong> — serialise/restore the full HeatBath state so a
+wall-time-killed run can resume.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Write_Checkpoint</span></code> / <code class="docutils literal notranslate"><span class="pre">Read_Checkpoint</span></code> — pack/unpack particles, step,
+time, RNG and all counters (rank-0 gather, MPI broadcast on restore).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Checkpoint_Exists</span></code> — test for a restart file.</p></li>
+</ul>
+<p><strong>Signal_Handler.F90</strong> — install SIGUSR1/SIGTERM handlers so the scheduler can
+request a clean checkpoint-and-exit.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Install_Signal_Handlers</span></code> — register the C-bound handler.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">g_terminate_now</span></code> / <code class="docutils literal notranslate"><span class="pre">g_term_signum</span></code> — flags polled by the main loop.</p></li>
+</ul>
+<p><strong>Timer_Module.F90</strong> — lightweight named-section wall-clock profiler.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Timer_Start</span></code> / <code class="docutils literal notranslate"><span class="pre">Timer_Stop</span></code> — accumulate elapsed time + call count per
+named section.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Timer_Report</span></code> — MPI-reduce and write per-section CSV on root.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Timer_Reset_All</span></code> — clear the section table.</p></li>
+</ul>
+<p><strong>PrintGuard.F90</strong> — global <code class="docutils literal notranslate"><span class="pre">print_enabled</span></code> flag so only MPI rank 0 emits
+setup-time banners.</p>
+</section>
+<section id="src-dsmc">
+<h3><code class="docutils literal notranslate"><span class="pre">src/DSMC/</span></code><a class="headerlink" href="#src-dsmc" title="Link to this heading"></a></h3>
+<p><strong>DMS_Collision_Class.F90</strong> — collision-object driver with a pluggable
+integrator; runs one trajectory per accepted pair and quantises the products.
+All converged trajectories are accepted (textbook DMS; an energy-conservation
+filter is opt-in via <code class="docutils literal notranslate"><span class="pre">apply_energy_filter</span></code>).</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Execute_QN</span></code> (<code class="docutils literal notranslate"><span class="pre">Execute_QN_DMS_Collision</span></code>) — <strong>primary collision entry
+point</strong>: runs a trajectory from quantum (v,j) initial states; returns product
+(v’,j’), Eint, arrangement, and post-collision coordinates/velocities;
+handles 3- and 4-body.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Execute</span></code> — variant that starts from raw atomic phase-space coordinates
+(strategy-c persistent state).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Execute_Fixed_b</span></code> — as <code class="docutils literal notranslate"><span class="pre">Execute</span></code> but at a caller-specified impact
+parameter (no random <em>b</em> draw).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Initialize</span></code> — build the embedded integrator from the integrator-name
+selector.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Reset_DMS_Collision_Counters</span></code> — zero the module-level trajectory
+diagnostics (<code class="docutils literal notranslate"><span class="pre">N_traj_converged</span></code>, <code class="docutils literal notranslate"><span class="pre">sum_dH_*</span></code>, <code class="docutils literal notranslate"><span class="pre">DMS_Sel_iPES</span></code>, …).</p></li>
+<li><p>Type: <code class="docutils literal notranslate"><span class="pre">DMS_Collision_Type</span></code>.</p></li>
+</ul>
+<p><strong>QCT_Collision_Module.F90</strong> — QCT trajectory mechanics: Hamiltonian ODE
+right-hand side, initial-state construction, integration, arrangement
+detection, product extraction, and scattering-angle evaluation. Used directly
+by ScatteringMap/IntegratorStudy and (for initial-state setup) by
+DMS_Collision_Class.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">QCT_Collision_Execute</span></code> — full trajectory from raw target coords + relative
+speed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QCT_Collision_FromQN</span></code> — trajectory starting from a quantum (v,j) state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QCT_Collision_Chi</span></code> — CoM-frame scattering angle |χ| for any arrangement
+(drives ScatteringMap).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QCT_FindState</span></code> — quantise a product diatomic to (v,j) from Cartesian
+coordinates.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QCT_SetInitialState</span></code> / <code class="docutils literal notranslate"><span class="pre">QCT_SetInitialState_Projectile</span></code> — build
+target/projectile atomic coordinates from a quantum state on a given PES.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QCT_Initialize</span></code> — configure the thread-local ODE solver.</p></li>
+</ul>
+<p><strong>Integrator_Class.F90</strong> — ODE integrator abstraction for a CoarseAIR
+trajectory.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Integrate</span></code> (<code class="docutils literal notranslate"><span class="pre">Integrate_Trajectory</span></code>) — dispatch to Bulirsch–Stoer or
+Velocity-Verlet, then record per-pair peak Rpi.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Initialize</span></code> — select BS/VV from a name string and configure the solver.</p></li>
+<li><p>Type: <code class="docutils literal notranslate"><span class="pre">DMS_Integrator_Type</span></code>.</p></li>
+</ul>
+<p><strong>NTC_Class.F90</strong> — Bird No-Time-Counter collision-pair selection for the 0D
+heat bath, with gnuc nuclear-spin importance boosting.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NTC_SelectPairs</span></code> — draw candidate pairs, accept with P = (σg)/(σg)<sub>max</sub>, apply per-species gnuc importance weighting; return accepted pair
+indices + relative-velocity vectors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">particle_boost</span></code> — a particle’s gnuc importance weight,
+gnuc<sub>max</sub>/gnuc(J).</p></li>
+</ul>
+</section>
+<section id="src-measurement">
+<h3><code class="docutils literal notranslate"><span class="pre">src/Measurement/</span></code><a class="headerlink" href="#src-measurement" title="Link to this heading"></a></h3>
+<p><strong>Measurement_Class.F90</strong> — per-particle internal energy / (v,j),
+Tint/Tvib/Trot reconstruction (Panesi 2013 decomposition), and the
+<code class="docutils literal notranslate"><span class="pre">box.csv</span></code> / population-row writers.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">WriteProperties</span></code> (<code class="docutils literal notranslate"><span class="pre">Write_Properties</span></code>) — compute bulk properties
+(densities, Tint/Tvib/Trot, mole fractions) and append a <code class="docutils literal notranslate"><span class="pre">box.csv</span></code> row.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Write_Pop_Row</span></code> — write one population-distribution snapshot for a species.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Compute_Eint_Cont</span></code> / <code class="docutils literal notranslate"><span class="pre">Compute_vj</span></code> — continuous (classical) internal
+energy and the quantised (v,j) + eigen-Eint of a molecule.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Calibrate_Cont_Zero</span></code> — calibrate the per-species classical-energy zero
+(well minimum).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BindSpeciesPotentials</span></code> — map each species to its matching CoarseAIR
+diatomic potential (needed for heteronuclear exchange products).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">InitSpeciesLevels</span></code> / <code class="docutils literal notranslate"><span class="pre">SetSpeciesGnuc</span></code> — load per-species level DBs and
+nuclear-spin weights.</p></li>
+<li><p>Type: <code class="docutils literal notranslate"><span class="pre">Measurement_Type</span></code>.</p></li>
+</ul>
+</section>
+<section id="src-particles">
+<h3><code class="docutils literal notranslate"><span class="pre">src/Particles/</span></code><a class="headerlink" href="#src-particles" title="Link to this heading"></a></h3>
+<p><strong>Particle_Class.F90</strong> — the single DMS particle (atom or molecule) carrying
+CoM velocity, persistent atomic phase-space coordinates (strategy-c), and a
+cached quantum state.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ResampleVelocity</span></code> — redraw CoM velocity from Maxwell–Boltzmann at <em>T</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Elastic_Scatter</span></code> / <code class="docutils literal notranslate"><span class="pre">Inelastic_Scatter</span></code> — isotropic relative-velocity
+reorientation, optionally removing an internal-energy increment from the
+relative KE.</p></li>
+<li><p>Type: <code class="docutils literal notranslate"><span class="pre">Particle_Type</span></code>.</p></li>
+</ul>
+<p><strong>Initialise_Class.F90</strong> — populate the particle array with Boltzmann-sampled
+internal states and Maxwellian velocities.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Initialise_Particles_Boltzmann</span></code> — single-species initialisation at
+(Tint, Ttr).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Initialise_Particles_Mixture</span></code> — multi-species mixture (per-species counts
+and Tint).</p></li>
+</ul>
+<p><strong>LevelsDB_Module.F90</strong> — load and index a rovibrational levels database for
+one species; (v,j) ↔ index ↔ energy lookups.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Read</span></code> — read the levels file, build the (v,j) table and per-v J=0 anchors
+for the Tvib/Trot decomposition.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FindLevel</span></code> / <code class="docutils literal notranslate"><span class="pre">GetEnergy</span></code> / <code class="docutils literal notranslate"><span class="pre">GetVJ</span></code> — level lookups by (v,j) or index.</p></li>
+<li><p>Types: <code class="docutils literal notranslate"><span class="pre">Level_Type</span></code>, <code class="docutils literal notranslate"><span class="pre">LevelsDB_Type</span></code>.</p></li>
+</ul>
+</section>
+<section id="programs-app">
+<h3>Programs (<code class="docutils literal notranslate"><span class="pre">app/</span></code>)<a class="headerlink" href="#programs-app" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>HeatBath.F90</strong> — main production binary: 0D isothermal heat-bath DMS
+driver (mixture init → NTC selection → MPI-strided trajectory execution →
+reduce → filter → particle update → output → checkpoint). Main loop at
+<code class="docutils literal notranslate"><span class="pre">HeatBath.F90:1011</span></code>. Also hosts the adiabatic (energy-conserving) bath;
+see <a class="reference internal" href="../theory/bath_types.html"><span class="doc">Heat Bath Types</span></a>.</p></li>
+<li><p><strong>Flow1D.F90</strong> — 1D wall-bounded DMS solver for planar Couette and Fourier
+flows: cell-based NTC over a 1D mesh, diffuse/specular walls with
+momentum/heat tallies, and per-cell profiles (T components, u<sub>y</sub>,
+composition, E<sub>rot</sub>/E<sub>vib</sub>). Uses the collision-frame
+alignment rotation (see below) since particle velocities persist between
+collisions.</p></li>
+<li><p><strong>ScatteringMap.F90</strong> — arrangement-resolved |χ|(b, E<sub>trans</sub>) grid
+scan for one collision pair, averaged over random orientations/phases.</p></li>
+<li><p><strong>IntegratorStudy.F90</strong> — integrator / step-size sensitivity bench (VV, Y4,
+Y6, RK4, BS), recording |dH| drift, convergence and wallclock per
+trajectory.</p></li>
+<li><p><strong>StateCheck.F90</strong> — end-to-end contract test for strategy-3 state
+reconstruction: builds phase space for every level of a species via
+<code class="docutils literal notranslate"><span class="pre">QCT_SetInitialState</span></code>, hands it to CoarseAIR’s <code class="docutils literal notranslate"><span class="pre">FindState</span></code>, and checks
+that <code class="docutils literal notranslate"><span class="pre">viba</span></code>/<code class="docutils literal notranslate"><span class="pre">AngMom</span></code>/<code class="docutils literal notranslate"><span class="pre">Eint</span></code>/boundedness invert back to the level the
+phase space came from (quantifies label ambiguity near dissociation).
+Diagnostic tool — no Makefile target yet; compile it against the same
+objects as the other apps when needed.</p></li>
+<li><p><strong>UnitTests.F90</strong> — function-level regression driver: exercises pure helper
+routines with deterministic inputs for golden-file comparison in
+<code class="docutils literal notranslate"><span class="pre">tests/regression/</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="collision-frame-alignment-persistent-velocity-gases">
+<h2>Collision-frame alignment (persistent-velocity gases)<a class="headerlink" href="#collision-frame-alignment-persistent-velocity-gases" title="Link to this heading"></a></h2>
+<p>CoarseAIR trajectories keep the approach axis fixed in the trajectory frame
+(molecular orientation is randomised instead), so product CoM velocities come
+back oriented to that fixed axis rather than to the pair’s actual approach
+direction. The isothermal 0D bath never sees this (velocities are resampled
+every step), but any configuration with <strong>persistent</strong> velocities — the
+adiabatic bath and Flow1D — would anisotropise the temperature components and
+pump a spurious species drift. <code class="docutils literal notranslate"><span class="pre">Execute_QN</span></code> therefore returns the
+trajectory-frame initial relative-velocity direction, and
+<code class="docutils literal notranslate"><span class="pre">Build_Alignment_Rotation</span></code> (<code class="docutils literal notranslate"><span class="pre">DMS_Collision_Class</span></code>) provides the orthogonal
+map onto the pair’s actual approach direction (random azimuth about it);
+Flow1D always applies it, HeatBath applies it in adiabatic mode only. The
+isothermal path draws no extra random numbers and remains bit-identical.</p>
+</section>
+<section id="collision-pipeline">
+<h2>Collision pipeline<a class="headerlink" href="#collision-pipeline" title="Link to this heading"></a></h2>
+<p>Each accepted NTC pair flows through the following call chain (<a class="reference external" href="file:line">file:line</a> for the
+current source):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>HeatBath.F90:1011   do iStep = 1, NSteps                       (main loop)
+  :1039   call NTC_SelectPairs(...)                  → NTC_Class.F90:50
+  :1111   do iPair = rank+1, NPairs_accepted, nprocs (per-rank stride)
+  :1211   call DMS_Colls(iCPair)%Execute_QN(...)     → DMS_Collision_Class.F90:340
+             ├─ QCT_SetInitialState_Projectile (4-body)  QCT_Collision_Module.F90:905
+             ├─ ComputeCoordinatesVelocities / ShiftCoordinates  (CoarseAIR)
+             ├─ Integrator%Integrate → Traj%PaQ          Integrator_Class.F90:106
+             ├─ Extract_Products_From_PaQ (arrangement)  DMS_Collision_Class.F90:1042
+             └─ MolState%FindState (quantise v&#39;,j&#39;)      DMS_Collision_Class.F90:649
+</pre></div>
+</div>
+<p>Post-return, in HeatBath:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> the collision-result buffers across ranks
+(<code class="docutils literal notranslate"><span class="pre">HeatBath.F90:1425</span></code>).</p></li>
+<li><p>Apply the nuclear-spin acceptance filter (homonuclear molecules only).</p></li>
+<li><p>Apply the per-channel filters: the <code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Exchange</span></code> master switch, the
+per-pair/arrangement gate <code class="docutils literal notranslate"><span class="pre">allow_exch_arr(iCPair,</span> <span class="pre">arr)</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Dissociation</span></code>.</p></li>
+<li><p>Update particle (v, j, pos, vel) — guarded by <code class="docutils literal notranslate"><span class="pre">is_homonuclear_product</span></code> so
+heteronuclear exchange products are consumed and re-tagged rather than
+poisoning the bath with wrong-manifold quantum numbers.</p></li>
+<li><p>Increment the per-pair counters (<code class="docutils literal notranslate"><span class="pre">pair_N_att</span></code>, <code class="docutils literal notranslate"><span class="pre">pair_N_inel</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pair_N_exch</span></code>, <code class="docutils literal notranslate"><span class="pre">pair_N_exch_by_arr</span></code>, <code class="docutils literal notranslate"><span class="pre">pair_N_diss</span></code>, …).</p></li>
+</ol>
+</section>
+<section id="mpi-model">
+<h2>MPI model<a class="headerlink" href="#mpi-model" title="Link to this heading"></a></h2>
+<p>dmsAIR uses a <strong>coll-buffer-replicated</strong> MPI pattern: each rank computes its
+share of accepted pairs, then <code class="docutils literal notranslate"><span class="pre">MPI_Allreduce</span></code> broadcasts the collision
+results into a shared buffer that every rank walks through synchronously. This
+keeps all ranks in lockstep on particle-state updates without any hand-rolled
+reduction of per-particle arrays.</p>
+<p>Per-rank cost scales with <code class="docutils literal notranslate"><span class="pre">NPairs_accepted</span> <span class="pre">/</span> <span class="pre">NRanks</span></code>; NTC pair selection is
+the only serial bottleneck (O(N<sub>p</sub>) per step, on rank 0).</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../reference/bibliography.html" class="btn btn-neutral float-left" title="Bibliography" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="adding_a_system.html" class="btn btn-neutral float-right" title="Adding a New Collision System" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Clement Civrais.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

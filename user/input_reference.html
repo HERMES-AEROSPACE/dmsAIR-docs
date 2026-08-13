@@ -1,0 +1,1323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Input File Reference &mdash; dmsAIR</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=eef4a3d2"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Output File Reference" href="output_reference.html" />
+    <link rel="prev" title="Running Simulations" href="running_simulations.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #1f3b5a" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            dmsAIR
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#run-the-h3-example">Run the H3 example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#plot">Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#where-to-go-next">Where to go next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#coarseair-dependency">CoarseAIR dependency</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#required-coarseair-patches">Required CoarseAIR patches</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#build-artefacts">Build artefacts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="running_simulations.html">Running Simulations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="running_simulations.html#local-machine-workstation-laptop">Local machine (workstation / laptop)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_simulations.html#cluster-with-a-slurm-scheduler">Cluster with a SLURM scheduler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_simulations.html#choosing-between-the-two-modes">Choosing between the two modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_simulations.html#adaptive-parameter-sweep-launchdms-py">Adaptive parameter sweep (<code class="docutils literal notranslate"><span class="pre">launchDMS.py</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_simulations.html#output-layout">Output layout</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Input File Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#thermodynamics">Thermodynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#numerics">Numerics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#physics-options">Physics options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#d-domain-and-walls-flow1d-only">1D domain and walls (Flow1D only)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integrator">Integrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#species-block">Species block</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#collision-pair-block">Collision-pair block</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pes-declarations-per-pair">PES declarations (per pair)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#product-molecule-declarations-per-pair">Product-molecule declarations (per pair)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ode-trajectory-parameters-per-pair">ODE / trajectory parameters (per pair)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quantisation-parameters-per-pair">Quantisation parameters (per pair)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="output_reference.html">Output File Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="output_reference.html#box-csv-layout">box.csv layout</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="output_reference.html#block-1-bath-state">Block 1 — Bath state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="output_reference.html#block-2-per-species-state">Block 2 — Per-species state</a></li>
+<li class="toctree-l3"><a class="reference internal" href="output_reference.html#block-3-rate-coefficients-dissociation-energy-coupling-per-pair">Block 3 — Rate coefficients + dissociation-energy coupling (per pair)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="output_reference.html#block-4-trajectory-diagnostic">Block 4 — Trajectory diagnostic</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="output_reference.html#pop-csv-layout">pop.csv layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="output_reference.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flow1d.html">1D simulations — Flow1D (Couette / Fourier)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flow1d.html#wall-model">Wall model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow1d.html#building-and-running">Building and running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow1d.html#input-keywords">Input keywords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow1d.html#output-files">Output files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow1d.html#example-decks-and-verification">Example decks and verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow1d.html#v1-limitations">v1 limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="postprocessing.html#h3-dms-vs-me-comparison">H3 DMS-vs-ME comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postprocessing.html#cno-dms-vs-me-comparison">CNO DMS-vs-ME comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postprocessing.html#scattering-maps">Scattering maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postprocessing.html#verification-suite-dms-vs-me">Verification suite (DMS vs ME)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postprocessing.html#population-inspection">Population inspection</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Theory Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../theory/dms.html">Direct Molecular Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#historical-context">Historical context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#conceptual-definition">Conceptual definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#ingredients-required-by-dms">Ingredients required by DMS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#the-dmsair-loop">The dmsAIR loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#internal-state-representation-the-three-strategies">Internal-state representation — the three strategies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/dms.html#macroscopic-observables">Macroscopic observables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/qct.html">Quasi-Classical Trajectories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#hamiltonian-formulation">Hamiltonian formulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#initial-state-sampling">Initial-state sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#integration-and-termination">Integration and termination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#arrangement-classification">Arrangement classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#semiclassical-quantisation">Semiclassical quantisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/qct.html#energy-conservation-diagnostic">Energy-conservation diagnostic</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/ntc.html">No-Time-Counter (NTC) Pair Selection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/ntc.html#sampling-law">Sampling law</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/ntc.html#cross-section-convention">Cross-section convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/ntc.html#parallel-implementation">Parallel implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/ntc.html#selecting-the-cut-off-impact-parameter">Selecting the cut-off impact parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/integrators.html">Trajectory Integrators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/integrators.html#benchmark">Benchmark</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/bath_types.html">Heat Bath Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/bath_types.html#isothermal-bath">Isothermal bath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/bath_types.html#adiabatic-bath">Adiabatic bath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/bath_types.html#density-and-pressure-convention">Density and pressure convention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/bath_types.html#decoupling-between-translational-and-internal-sampling">Decoupling between translational and internal sampling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/reactive_channels.html">Reactive Channels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/reactive_channels.html#arrangement-codes">Arrangement codes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../theory/reactive_channels.html#three-body-system">Three-body system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../theory/reactive_channels.html#four-body-system">Four-body system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/reactive_channels.html#per-channel-filters">Per-channel filters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/reactive_channels.html#rate-coefficient-measurement">Rate coefficient measurement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/reactive_channels.html#electronic-manifolds-and-multi-pes-sampling">Electronic manifolds and multi-PES sampling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../theory/gaussian_binning.html">Gaussian binning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#why">Why</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#what">What</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#representation-and-energy-conservation">Representation and energy conservation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#normalisation-caveat">Normalisation caveat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#diagnostics">Diagnostics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../theory/gaussian_binning.html#input-keys">Input keys</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/h3_heatbath.html">H<sub>2</sub> + H heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#regime-1-inelastic-with-exchange">Regime 1 — Inelastic (with exchange)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#regime-2-inelastic-only-inelastic-noexch">Regime 2 — Inelastic-only (<code class="docutils literal notranslate"><span class="pre">Inelastic_noExch</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#regime-3-dissociation">Regime 3 — Dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#product-kinetics">Product kinetics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h3_heatbath.html#running-and-comparison">Running and comparison</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/noc_heatbath.html">NO + C heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#regime-mapping">Regime mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#regime-deck-highlights-and-enabled-processes">Regime deck highlights and enabled processes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#running-a-single-case">Running a single case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#launching-a-full-sweep">Launching a full sweep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/noc_heatbath.html#post-processing">Post-processing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/cno_heatbath.html">CN + O heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#heterogeneous-exchange-and-how-channels-are-selected">Heterogeneous exchange and how channels are selected</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#dissociation">Dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#deck-highlights-cn-o-inelastic-10000k">Deck highlights (<code class="docutils literal notranslate"><span class="pre">CN+O_Inelastic/10000K</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/cno_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/con2d_heatbath.html">CO + N(²D) heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#channel-selection">Channel selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#deck-highlights-co-n2d-inelastic-10000k">Deck highlights (<code class="docutils literal notranslate"><span class="pre">CO+N2D_Inelastic/10000K</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#comparison-caveats">Comparison caveats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con2d_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/con4s_heatbath.html">CO + N(⁴S) heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#regime-1-inelastic">Regime 1 — Inelastic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#regime-2-exchange-exchange1-4s-products">Regime 2 — Exchange (<code class="docutils literal notranslate"><span class="pre">Exchange1_4S_Products</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#regime-3-exchange-dissociation">Regime 3 — Exchange + dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#product-kinetics-what-is-and-is-not-simulated">Product kinetics: what is and is not simulated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/con4s_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/h4_heatbath.html">H<sub>2</sub> + H<sub>2</sub> heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#regime-1-inelastic">Regime 1 — Inelastic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#regime-2-dissociation-single">Regime 2 — Dissociation (single)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#regime-3-double-dissociation">Regime 3 — Double dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#product-kinetics">Product kinetics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h4_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/h2he_heatbath.html">H₂ + He heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#no-exchange-channel">No exchange channel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#deck-highlights-inelastic-5000k">Deck highlights (<code class="docutils literal notranslate"><span class="pre">Inelastic/5000K</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#the-gaussian-binning-arm">The Gaussian-binning arm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#dissociation">Dissociation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2he_heatbath.html#running-and-analysis">Running and analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/h2mix_heatbath.html">Hydrogen mixture heat bath</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#case-tree">Case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#mixture-definition">Mixture definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#homogeneous-exchange">Homogeneous exchange</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#dissociation-direct-exchange-assisted-and-double">Dissociation: direct, exchange-assisted, and double</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#enabled-processes-pair-by-pair">Enabled processes, pair by pair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/h2mix_heatbath.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/flow1d_couette.html">1D Couette and Fourier flows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/flow1d_couette.html#couette-flow">Couette flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/flow1d_couette.html#fourier-flow">Fourier flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/flow1d_couette.html#what-the-solver-does-with-this">What the solver does with this</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/flow1d_couette.html#running">Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scattering_map.html">Scattering Map — selecting <code class="docutils literal notranslate"><span class="pre">bmax</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#running">Running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#output-columns">Output columns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#bmax-convergence-study-2026-07">bmax convergence study (2026-07)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/scattering_map.html#convergence-clipping">Convergence clipping</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/integrator_study.html">Integrator Study</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../examples/integrator_study.html#running">Running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/integrator_study.html#output">Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples/integrator_study.html#post-processing">Post-processing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/about.html">About dmsAIR</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/about.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/about.html#related-hermes-codes">Related HERMES codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/about.html#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/about.html#citing-dmsair">Citing dmsAIR</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/validation.html">Validation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#h2-h-3-body-homogeneous">H<sub>2</sub> + H (3-body, homogeneous)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#cno-systems-3-body">CNO systems (3-body)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#multi-pes-and-coupled-reactive-chemistry-no-c-cn-o">Multi-PES and coupled reactive chemistry (NO+C / CN+O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#h2-h2-4-body">H<sub>2</sub> + H<sub>2</sub> (4-body)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#d-wall-bounded-flows-flow1d">1D wall-bounded flows (Flow1D)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/validation.html#regression-test-suite">Regression test suite</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/bibliography.html">Bibliography</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#reviews">Reviews</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#direct-molecular-simulation">Direct Molecular Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#direct-simulation-monte-carlo">Direct Simulation Monte Carlo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#master-equation-comparison">Master equation comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#molecular-dynamics-methods">Molecular dynamics methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#potential-energy-surfaces">Potential Energy Surfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#coarseair">CoarseAIR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reference/bibliography.html#plato">PLATO</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developer/architecture.html">Architecture Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/architecture.html#source-tree-layout">Source-tree layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/architecture.html#module-reference">Module reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../developer/architecture.html#top-level-src">Top-level <code class="docutils literal notranslate"><span class="pre">src/</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/architecture.html#src-dsmc"><code class="docutils literal notranslate"><span class="pre">src/DSMC/</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/architecture.html#src-measurement"><code class="docutils literal notranslate"><span class="pre">src/Measurement/</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/architecture.html#src-particles"><code class="docutils literal notranslate"><span class="pre">src/Particles/</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/architecture.html#programs-app">Programs (<code class="docutils literal notranslate"><span class="pre">app/</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/architecture.html#collision-frame-alignment-persistent-velocity-gases">Collision-frame alignment (persistent-velocity gases)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/architecture.html#collision-pipeline">Collision pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/architecture.html#mpi-model">MPI model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer/adding_a_system.html">Adding a New Collision System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/adding_a_system.html#verify-coarseair-support">1. Verify CoarseAIR support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/adding_a_system.html#locate-the-levels-files">2. Locate the levels files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/adding_a_system.html#write-the-case-dmsair-inp">3. Write the case <code class="docutils literal notranslate"><span class="pre">dmsAIR.inp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/adding_a_system.html#calibrate-bmax">4. Calibrate <code class="docutils literal notranslate"><span class="pre">bmax</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/adding_a_system.html#smoke-test-a-short-run">5. Smoke-test a short run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/adding_a_system.html#generate-the-case-tree">6. Generate the case tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/adding_a_system.html#heteronuclear-specific-verify-both-exchange-channels">7. Heteronuclear-specific: verify both exchange channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/adding_a_system.html#validate-against-me-optional-but-recommended">8. Validate against ME (optional but recommended)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../developer/regression_tests.html">Regression Tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/regression_tests.html#running">Running</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/regression_tests.html#test-inventory">Test inventory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../developer/regression_tests.html#app-level-cases">App-level cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer/regression_tests.html#unit-tests-unittest-core">Unit tests (<code class="docutils literal notranslate"><span class="pre">unittest_core</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/regression_tests.html#re-blessing">Re-blessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/regression_tests.html#adding-a-new-app-level-test">Adding a new app-level test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/regression_tests.html#adding-a-new-unit-test">Adding a new unit test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer/regression_tests.html#tests-deliberately-not-yet-in-the-suite">Tests deliberately not yet in the suite</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #1f3b5a" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">dmsAIR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Input File Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/user/input_reference.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="input-file-reference">
+<h1>Input File Reference<a class="headerlink" href="#input-file-reference" title="Link to this heading"></a></h1>
+<p>Every case is driven by a plain-text <code class="docutils literal notranslate"><span class="pre">dmsAIR.inp</span></code> file. Keywords are
+case-sensitive; unknown keywords are silently ignored (dmsAIR prints a
+warning to stdout but continues). Comment lines start with <code class="docutils literal notranslate"><span class="pre">#</span></code>.</p>
+<p>This page documents <strong>every</strong> keyword recognised by the input parser in
+<code class="docutils literal notranslate"><span class="pre">src/DMS_Input_Class.F90</span></code>, grouped by logical block, together with its
+type, default value, allowed range and a short description.</p>
+<section id="thermodynamics">
+<h2>Thermodynamics<a class="headerlink" href="#thermodynamics" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Translational</span> <span class="pre">Temperature</span> <span class="pre">[K]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Imposed translational temperature <span class="math notranslate nohighlight">\(T_{\mathrm{tr}}\)</span> of the
+isothermal bath (also used to initialise Maxwellian velocities
+for the adiabatic bath).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Internal</span> <span class="pre">Temperature</span> <span class="pre">[K]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Initial internal (rovibrational) temperature
+<span class="math notranslate nohighlight">\(T_{\mathrm{int}}\)</span> of the diatomic bath; sets the initial
+Boltzmann <span class="math notranslate nohighlight">\((v, j)\)</span> distribution.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Pressure</span> <span class="pre">[Pa]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Initial pressure; used with <span class="math notranslate nohighlight">\(T_{\mathrm{int}}\)</span> to set the
+initial number density <span class="math notranslate nohighlight">\(n = P / (k_B T_{\mathrm{int}})\)</span>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="numerics">
+<h2>Numerics<a class="headerlink" href="#numerics" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">Particles</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Total number of simulation particles in the bath (all species).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">Time</span> <span class="pre">Steps</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Total macroscopic DMS time-steps to run.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Impact</span> <span class="pre">Parameter</span> <span class="pre">[Bohr]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Legacy global cut-off impact parameter. Production runs use the
+per-pair <code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">bmax</span></code> keyword instead.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Particle</span> <span class="pre">Weight</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0</p></td>
+<td><p>Statistical weight (number of real molecules per simulation
+particle).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Output</span> <span class="pre">Interval</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Number of DMS steps between <code class="docutils literal notranslate"><span class="pre">box.csv</span></code> writes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Population</span> <span class="pre">Output</span> <span class="pre">Interval</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Number of DMS steps between <code class="docutils literal notranslate"><span class="pre">pop.csv</span></code> writes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Kernel</span> <span class="pre">Output</span> <span class="pre">Interval</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Number of DMS steps between kernel-count dumps
+(requires <code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Kernel</span> <span class="pre">=</span> <span class="pre">yes</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Kernel</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>no</p></td>
+<td><p>Enable per-step <span class="math notranslate nohighlight">\((v, j) \to (v', j')\)</span> transition-kernel
+accumulation and output.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DMS</span> <span class="pre">Timestep</span> <span class="pre">Fraction</span></code></p></td>
+<td><p>real</p></td>
+<td><p>0.1</p></td>
+<td><p>DMS macro timestep as a fraction of the local mean collision
+time.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">RNG</span> <span class="pre">Seed</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>−1</p></td>
+<td><p>Seed for the Fortran RNG. <code class="docutils literal notranslate"><span class="pre">-1</span></code> (default) ⇒ seed from
+<code class="docutils literal notranslate"><span class="pre">system_clock</span></code> (non-reproducible, production).
+<code class="docutils literal notranslate"><span class="pre">≥0</span></code> ⇒ deterministic, used by the regression test suite.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="physics-options">
+<h2>Physics options<a class="headerlink" href="#physics-options" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Bath</span> <span class="pre">Type</span></code></p></td>
+<td><p>string</p></td>
+<td><p>isothermal</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">isothermal</span></code> (imposed <span class="math notranslate nohighlight">\(T_{\mathrm{tr}}\)</span>) or
+<code class="docutils literal notranslate"><span class="pre">adiabatic</span></code> (energy-conserving). See <a class="reference internal" href="../theory/bath_types.html"><span class="doc">Heat Bath Types</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Dissociation</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>no</p></td>
+<td><p>Master switch for dissociation events.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Double</span> <span class="pre">Dissociation</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>no</p></td>
+<td><p>4-body only. Enables the fully-dissociated channel
+(<code class="docutils literal notranslate"><span class="pre">arrangement</span> <span class="pre">=</span> <span class="pre">-2</span></code>). Disabled by default to keep DMS-vs-ME
+comparisons like-for-like.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Exchange</span> <span class="pre">Arr</span> <span class="pre">1</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>yes</p></td>
+<td><p>Master switch for all exchange reactions (<code class="docutils literal notranslate"><span class="pre">Arr</span> <span class="pre">1</span></code> keeps the
+naming scheme uniform with the per-arrangement filters below).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Exchange</span> <span class="pre">Arr</span> <span class="pre">N</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>yes</p></td>
+<td><p>Global per-arrangement exchange filter for <span class="math notranslate nohighlight">\(N \in \{2, 3, 4,
+5, 6\}\)</span> — sets <strong>all</strong> collision pairs identically. Set to <code class="docutils literal notranslate"><span class="pre">no</span></code>
+to silence channel <span class="math notranslate nohighlight">\(N\)</span>. See <a class="reference internal" href="../theory/reactive_channels.html"><span class="doc">Reactive Channels</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Exchange</span> <span class="pre">P&lt;n&gt;</span> <span class="pre">Arr</span> <span class="pre">&lt;m&gt;</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>yes</p></td>
+<td><p><strong>Per-pair</strong> exchange filter (recommended over the global form for
+mixtures and partner systems). The arrangement index numbers the
+atom-pair slots <em>within</em> each collision pair, so the same <code class="docutils literal notranslate"><span class="pre">Arr</span> <span class="pre">m</span></code>
+is a <em>different physical reaction</em> in different pairs (in CNO:
+P1 <code class="docutils literal notranslate"><span class="pre">Arr</span> <span class="pre">2</span></code> is CN+X → CO+atom while P1 <code class="docutils literal notranslate"><span class="pre">Arr</span> <span class="pre">3</span></code> is CN+X →
+NO+atom). A global filter cannot express “block the parasitic
+channel but keep the desired back-reaction” — this one can. See
+the <a class="reference internal" href="../examples/cno_heatbath.html"><span class="doc">CN + O heat bath</span></a> example.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Dissociation</span> <span class="pre">Direct</span></code> / <code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Dissociation</span> <span class="pre">Indirect</span> <span class="pre">Arr</span> <span class="pre">N</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>(no-op)</p></td>
+<td><p><strong>Deprecated.</strong> Accepted for backward compatibility but ignored:
+only the <code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Dissociation</span></code> master switch is honoured. The
+direct vs exchange-assisted distinction is now a <em>diagnostic</em>
+(classified per event from the per-pair trajectory record and
+reported in the output), not an input gate.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Propagate</span> <span class="pre">Phase</span> <span class="pre">Space</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>yes</p></td>
+<td><p>Strategy (c): persistent atomic <span class="math notranslate nohighlight">\((q, \dot q)\)</span> between
+collisions. Recommended. Setting <code class="docutils literal notranslate"><span class="pre">no</span></code> switches to quantum-number
+carry (the state is re-built from (v, j) each collision) — this
+became functional on 2026-07-29; earlier binaries ignored the
+<code class="docutils literal notranslate"><span class="pre">no</span></code> setting.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Gaussian</span> <span class="pre">Binning</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>no</p></td>
+<td><p>Gaussian-binning collision acceptance (Bonnet–Rayez GB in
+accept/reject form): outcomes whose continuous vibrational action
+lands mid-ladder are discounted, restoring near-threshold
+quantisation that plain histogram binning breaks. Forces
+quantum-number carry ON, and pays the snap-to-level energy from
+the products’ relative translation (energy-conserving). See
+<a class="reference internal" href="../theory/gaussian_binning.html"><span class="doc">Gaussian binning</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GB</span> <span class="pre">Epsilon</span> <span class="pre">Vib</span></code></p></td>
+<td><p>real</p></td>
+<td><p>0.10</p></td>
+<td><p>Gaussian width in vibrational action [quanta] for
+<code class="docutils literal notranslate"><span class="pre">Gaussian</span> <span class="pre">Binning</span> <span class="pre">=</span> <span class="pre">yes</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GB</span> <span class="pre">Epsilon</span> <span class="pre">Rot</span></code></p></td>
+<td><p>real</p></td>
+<td><p>0.0</p></td>
+<td><p>Gaussian width in rotational action. <code class="docutils literal notranslate"><span class="pre">0</span></code> (default) leaves
+rotation histogram-binned; a nonzero value adds a second
+acceptance factor (statistically expensive).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="d-domain-and-walls-flow1d-only">
+<h2>1D domain and walls (Flow1D only)<a class="headerlink" href="#d-domain-and-walls-flow1d-only" title="Link to this heading"></a></h2>
+<p>Read by <code class="docutils literal notranslate"><span class="pre">dmsAIR_Flow1D</span></code>; ignored by the 0D heat bath. See <a class="reference internal" href="flow1d.html"><span class="doc">1D simulations — Flow1D (Couette / Fourier)</span></a>
+for the solver description, output files and example decks. <code class="docutils literal notranslate"><span class="pre">Bath</span> <span class="pre">Type</span></code>
+must be <code class="docutils literal notranslate"><span class="pre">adiabatic</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34.0%" />
+<col style="width: 10.0%" />
+<col style="width: 12.0%" />
+<col style="width: 44.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Domain</span> <span class="pre">Length</span> <span class="pre">[m]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Channel width <span class="math notranslate nohighlight">\(L\)</span> in the wall-normal direction <em>x</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">Cells</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Number of uniform cells across the channel (NTC selection and
+profile sampling).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Wall</span> <span class="pre">Left</span> <span class="pre">Temperature</span> <span class="pre">[K]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Left-wall (<span class="math notranslate nohighlight">\(x = 0\)</span>) Maxwell temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Wall</span> <span class="pre">Right</span> <span class="pre">Temperature</span> <span class="pre">[K]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Right-wall (<span class="math notranslate nohighlight">\(x = L\)</span>) Maxwell temperature. Unequal wall
+temperatures = Fourier flow.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Wall</span> <span class="pre">Left</span> <span class="pre">Velocity</span> <span class="pre">Y</span> <span class="pre">[m/s]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>0</p></td>
+<td><p>Tangential velocity of the left wall.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Wall</span> <span class="pre">Right</span> <span class="pre">Velocity</span> <span class="pre">Y</span> <span class="pre">[m/s]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>0</p></td>
+<td><p>Tangential velocity of the right wall. Opposite wall velocities =
+Couette flow.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Wall</span> <span class="pre">Accommodation</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0</p></td>
+<td><p>Diffuse-reflection probability <span class="math notranslate nohighlight">\(\alpha \in [0, 1]\)</span>
+(1 = fully diffuse, 0 = specular).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Wall</span> <span class="pre">Internal</span> <span class="pre">Accommodation</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0</p></td>
+<td><p>Probability that a molecule’s internal (v, j) state is re-sampled
+at the wall temperature on a diffuse bounce.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Sampling</span> <span class="pre">Start</span> <span class="pre">Step</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>First step included in the time-averaged profiles (discards the
+startup transient).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Profile</span> <span class="pre">Output</span> <span class="pre">Interval</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Steps between <code class="docutils literal notranslate"><span class="pre">profiles.csv</span></code> / <code class="docutils literal notranslate"><span class="pre">walls.csv</span></code> rows.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Geometry</span> <span class="pre">File</span></code></p></td>
+<td><p>path</p></td>
+<td><p>—</p></td>
+<td><p>Optional: moves the domain and boundary definition to a separate
+file (<code class="docutils literal notranslate"><span class="pre">Domain</span> <span class="pre">Length</span> <span class="pre">X/Y/Z</span> <span class="pre">[m]</span></code>, <code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">Cells</span> <span class="pre">X</span></code>, per-face
+type/temperature/velocity/accommodation). The particle weight is
+then derived from <span class="math notranslate nohighlight">\((P, T_{\mathrm{int}}, V, N_p)\)</span>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="integrator">
+<h2>Integrator<a class="headerlink" href="#integrator" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Integrator</span></code></p></td>
+<td><p>string</p></td>
+<td><p>BS</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BS</span></code> (adaptive Bulirsch–Stoer, default) or <code class="docutils literal notranslate"><span class="pre">VV</span></code> (fixed-step
+Velocity Verlet). See <a class="reference internal" href="../theory/integrators.html"><span class="doc">Trajectory Integrators</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VV</span> <span class="pre">Timestep</span> <span class="pre">[a.u.]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>2.0</p></td>
+<td><p>Fixed macro timestep for the VV integrator, in atomic time units.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="output">
+<h2>Output<a class="headerlink" href="#output" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Output</span> <span class="pre">Path</span></code></p></td>
+<td><p>string</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Output/</span></code></p></td>
+<td><p>Directory (relative to the case dir) into which <code class="docutils literal notranslate"><span class="pre">box.csv</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pop.csv</span></code> and ancillary diagnostics are written.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="species-block">
+<h2>Species block<a class="headerlink" href="#species-block" title="Link to this heading"></a></h2>
+<p>Per-species keywords are repeated once per species, terminated by the
+next <code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Name</span></code>. <code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">Species</span></code> sets the total count.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">Species</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>0</p></td>
+<td><p>Number of species blocks that follow.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Name</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Species label (e.g. <code class="docutils literal notranslate"><span class="pre">NO</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Np</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>auto</p></td>
+<td><p>Optional. Explicit particle count for this species. Overrides the
+fraction implied by <code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">X</span></code> if both are given.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">X</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Initial mole fraction (must sum to 1 across species).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Tint</span> <span class="pre">[K]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>global</p></td>
+<td><p>Per-species initial internal temperature; falls back to
+<code class="docutils literal notranslate"><span class="pre">Internal</span> <span class="pre">Temperature</span></code> if omitted.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Levels</span> <span class="pre">File</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Rovibrational-level table for this species (mandatory for a
+molecular species).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Is</span> <span class="pre">Molecule</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>—</p></td>
+<td><p>Distinguishes molecular (<code class="docutils literal notranslate"><span class="pre">yes</span></code>) from atomic (<code class="docutils literal notranslate"><span class="pre">no</span></code>) species.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">NAtoms</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Number of atoms in this species (1 for atom, 2 for diatomic).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Atom</span> <span class="pre">Mass</span> <span class="pre">1</span> <span class="pre">[a.u.]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Mass of atom 1 of this species (atomic units).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Atom</span> <span class="pre">Mass</span> <span class="pre">2</span> <span class="pre">[a.u.]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Mass of atom 2. Required only for diatomics.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Atom</span> <span class="pre">Name</span> <span class="pre">1</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Name tag for atom 1 (e.g. <code class="docutils literal notranslate"><span class="pre">N</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Atom</span> <span class="pre">Name</span> <span class="pre">2</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Name tag for atom 2.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">Diatomic</span> <span class="pre">Model</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Diatomic potential identifier (e.g. <code class="docutils literal notranslate"><span class="pre">UCI</span></code>, <code class="docutils literal notranslate"><span class="pre">UMN</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Schwenke</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">gnuc</span> <span class="pre">Even</span> <span class="pre">J</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0</p></td>
+<td><p>Nuclear-spin degeneracy for even <span class="math notranslate nohighlight">\(j\)</span> rotational levels
+(homonuclear diatomics only).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Species</span> <span class="pre">gnuc</span> <span class="pre">Odd</span> <span class="pre">J</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0</p></td>
+<td><p>Nuclear-spin degeneracy for odd <span class="math notranslate nohighlight">\(j\)</span>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="collision-pair-block">
+<h2>Collision-pair block<a class="headerlink" href="#collision-pair-block" title="Link to this heading"></a></h2>
+<p>Collision pairs define which species interact and which PES is used. A
+single case may declare several pairs; per-pair keywords are repeated.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 28.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 48.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">Collision</span> <span class="pre">Pairs</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>0</p></td>
+<td><p>Number of collision-pair blocks that follow.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Species</span> <span class="pre">1</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Index of the first species (1-based) in the species list.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Species</span> <span class="pre">2</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Index of the second species.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">bmax</span> <span class="pre">[Bohr]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Cut-off impact parameter for NTC pair selection. See
+<a class="reference internal" href="../theory/ntc.html"><span class="doc">No-Time-Counter (NTC) Pair Selection</span></a> for the calibration metric.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">System</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>CoarseAIR system identifier (e.g. <code class="docutils literal notranslate"><span class="pre">CNO</span></code>, <code class="docutils literal notranslate"><span class="pre">H3</span></code>, <code class="docutils literal notranslate"><span class="pre">H4</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Database</span> <span class="pre">Path</span></code></p></td>
+<td><p>string</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$COARSEAIR_DTB/</span></code></p></td>
+<td><p>Path to the CoarseAIR <code class="docutils literal notranslate"><span class="pre">dtb</span></code> directory. Supports env-var
+expansion.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Dinit</span> <span class="pre">[Bohr]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>30.0</p></td>
+<td><p>Initial separation of the colliding partners at the start of each
+QCT trajectory.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="pes-declarations-per-pair">
+<h3>PES declarations (per pair)<a class="headerlink" href="#pes-declarations-per-pair" title="Link to this heading"></a></h3>
+<p>Up to five electronic states can be declared per collision pair. Only
+<code class="docutils literal notranslate"><span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">PESs</span></code> entries are actually loaded.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 42.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">PESs</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>1</p></td>
+<td><p>Number of electronic PESs to load for this pair.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">PES</span> <span class="pre">Model</span> <span class="pre">K</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Name of the <span class="math notranslate nohighlight">\(K\)</span>-th PES model (<span class="math notranslate nohighlight">\(K = 1..5\)</span>), e.g.
+<code class="docutils literal notranslate"><span class="pre">UCI_4A2</span></code>, <code class="docutils literal notranslate"><span class="pre">H3_BH</span></code>, <code class="docutils literal notranslate"><span class="pre">H4_BMKP</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">PES</span> <span class="pre">Degeneracy</span> <span class="pre">K</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0</p></td>
+<td><p>Statistical weight <span class="math notranslate nohighlight">\(g_K\)</span> of the <span class="math notranslate nohighlight">\(K\)</span>-th PES (its electronic
+degeneracy fraction). Sets the share of collisions sampled on this PES
+and the fraction rejected — see <a class="reference internal" href="#multi-pes-sampling"><span class="std std-ref">the note below</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">PES</span> <span class="pre">Parameters</span> <span class="pre">File</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Optional file of PES-specific parameter overrides.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Distinguish</span> <span class="pre">PESs</span></code></p></td>
+<td><p>yes/no</p></td>
+<td><p>no</p></td>
+<td><p>When multiple PESs are declared, report rate coefficients per-PES
+instead of aggregated.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note" id="multi-pes-sampling">
+<p class="admonition-title">Note</p>
+<p><strong>Degeneracy-weighted multi-PES sampling.</strong> When several PESs are declared,
+each colliding pair selects <em>one</em> of them by a single draw against the
+<em>cumulative</em> per-PES degeneracies. With <span class="math notranslate nohighlight">\(u \sim \mathcal{U}(0,1)\)</span>, the
+trajectory is integrated on PES <span class="math notranslate nohighlight">\(k\)</span> when</p>
+<div class="math notranslate nohighlight">
+\[\sum_{j&lt;k} g_j \;\le\; u \;&lt;\; \sum_{j\le k} g_j ,\]</div>
+<p>and the collision is <strong>rejected outright</strong> when
+<span class="math notranslate nohighlight">\(u \ge \sum_j g_j\)</span> — it correlates to an electronic manifold not
+included in the run. Each PES therefore receives a share of trajectories
+proportional to its <em>own</em> weight <span class="math notranslate nohighlight">\(g_k\)</span> (this is a <em>PES-specific</em>
+rejection, not a single lumped accept/reject), and the overall relaxation
+rate carries the factor <span class="math notranslate nohighlight">\(\sum_j g_j\)</span>.</p>
+<p>A single PES of weight <code class="docutils literal notranslate"><span class="pre">1.0</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">H3_BH</span></code>, <code class="docutils literal notranslate"><span class="pre">H4_BMKP</span></code>) skips the draw
+entirely and every collision proceeds, so single-manifold runs are
+unaffected. The weights are the electronic degeneracies of the reactant
+asymptote (temperature-dependent partition-function ratios for CNO); they
+are evaluated at the run temperature and written into the deck. Running
+several PESs in one simulation reproduces the full electronically-mixed
+(“global”) dynamics directly, instead of summing separate per-PES runs.</p>
+<p><em>Example (CNO, NO+C at 10000 K):</em> two declared PESs with
+<span class="math notranslate nohighlight">\(g_{2A1}=0.11242\)</span> and <span class="math notranslate nohighlight">\(g_{4A2}=0.11228\)</span>
+(<span class="math notranslate nohighlight">\(\sum g = 0.225\)</span>) sample ~50 % of accepted trajectories on each and
+reject ~77.5 % of NTC-selected pairs.</p>
+</div>
+</section>
+<section id="product-molecule-declarations-per-pair">
+<h3>Product-molecule declarations (per pair)<a class="headerlink" href="#product-molecule-declarations-per-pair" title="Link to this heading"></a></h3>
+<p>For heteronuclear reactive systems the product molecules that can form
+after an exchange must be enumerated so their diatomic potentials and
+level tables are loaded.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 36.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Nb</span> <span class="pre">of</span> <span class="pre">Molecule</span> <span class="pre">Types</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>1</p></td>
+<td><p>Number of distinct molecular products for this pair (e.g. 3 for
+NO + C: NO, CN, CO).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Molecule</span> <span class="pre">K</span> <span class="pre">Name</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Label of the <span class="math notranslate nohighlight">\(K\)</span>-th molecule (<span class="math notranslate nohighlight">\(K = 1..4\)</span>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Molecule</span> <span class="pre">K</span> <span class="pre">Diatomic</span> <span class="pre">Model</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Diatomic-potential identifier for the <span class="math notranslate nohighlight">\(K\)</span>-th molecule.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Molecule</span> <span class="pre">K</span> <span class="pre">Levels</span> <span class="pre">File</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Rovibrational-level table for the <span class="math notranslate nohighlight">\(K\)</span>-th molecule.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">Diatomic</span> <span class="pre">Model</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Global diatomic-model override (fallback when per-molecule models
+are not set).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ode-trajectory-parameters-per-pair">
+<h3>ODE / trajectory parameters (per pair)<a class="headerlink" href="#ode-trajectory-parameters-per-pair" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 44.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">ODE</span> <span class="pre">dt</span> <span class="pre">[a.u.]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Initial/target integrator step size (atomic time units).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">ODE</span> <span class="pre">eps</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0e-8</p></td>
+<td><p>Relative error tolerance passed to the BS integrator.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">ODE</span> <span class="pre">NSteps</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>—</p></td>
+<td><p>Maximum number of sub-steps in the BS modified-midpoint
+extrapolation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">ODE</span> <span class="pre">Relax</span></code></p></td>
+<td><p>real</p></td>
+<td><p>0.5</p></td>
+<td><p>Step-size relaxation factor for the BS solver after a rejected
+step.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">ODE</span> <span class="pre">ncall</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>10</p></td>
+<td><p>Number of convergence checks performed per macro call to the
+integrator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">ODE</span> <span class="pre">Rmax</span> <span class="pre">[Bohr]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>40.0</p></td>
+<td><p>Convergence radius: when the largest atom-pair distance exceeds
+<code class="docutils literal notranslate"><span class="pre">Rmax</span></code> the trajectory is declared finished.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">ODE</span> <span class="pre">tmax</span> <span class="pre">[a.u.]</span></code></p></td>
+<td><p>real</p></td>
+<td><p>—</p></td>
+<td><p>Wall-time cap per trajectory. Long-lived complexes exceeding this
+are flagged non-converged and excluded from statistics.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="quantisation-parameters-per-pair">
+<h3>Quantisation parameters (per pair)<a class="headerlink" href="#quantisation-parameters-per-pair" title="Link to this heading"></a></h3>
+<p>These feed CoarseAIR’s <code class="docutils literal notranslate"><span class="pre">FindState</span></code> routine (see
+<a class="reference internal" href="../theory/qct.html"><span class="doc">Quasi-Classical Trajectories</span></a>).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 10.0%" />
+<col style="width: 14.0%" />
+<col style="width: 46.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Keyword</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">nquad</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>50</p></td>
+<td><p>Number of Gauss–Legendre nodes in the radial action integral.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">rcent</span> <span class="pre">lower</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0</p></td>
+<td><p>Lower bracket (Bohr) for the inner-turning-point search.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">rcent</span> <span class="pre">upper</span></code></p></td>
+<td><p>real</p></td>
+<td><p>30.0</p></td>
+<td><p>Upper bracket (Bohr) for the outer-turning-point search.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">rfact</span></code></p></td>
+<td><p>real</p></td>
+<td><p>0.0</p></td>
+<td><p>Safety factor applied to the turning-point bracket; 0 disables.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">tthresau</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0e-100</p></td>
+<td><p>Vibrational-period threshold below which a state is treated as
+unbound.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">HamAbsTol</span></code></p></td>
+<td><p>real</p></td>
+<td><p>1.0e-5</p></td>
+<td><p>Diagnostic threshold on <span class="math notranslate nohighlight">\(|\Delta H|\)</span> per trajectory (not a
+rejection filter — all converged trajectories are accepted; see
+<a class="reference internal" href="../theory/qct.html"><span class="doc">Quasi-Classical Trajectories</span></a>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Collision</span> <span class="pre">Pair</span> <span class="pre">CoarseAIR</span> <span class="pre">Config</span></code></p></td>
+<td><p>string</p></td>
+<td><p>—</p></td>
+<td><p>Optional path to a CoarseAIR-style configuration file for
+advanced tuning.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<p>A production NO + C input on the UCI 4A<sub>2</sub> PES, configured for the
+<code class="docutils literal notranslate"><span class="pre">exchange1</span> <span class="pre">+</span> <span class="pre">dissociation</span></code> regime (CN + O channel only, dissociation
+enabled). The layout follows the same ordering used throughout the
+<code class="docutils literal notranslate"><span class="pre">run/</span></code> tree: Thermodynamics → Numerics → Physics options → Integrator →
+Output → Species → Collision pair(s).</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>###############################################################################
+#  NO + C  Heat Bath  —  UCI_4A2  —  T_tr = 10 000 K
+#  regime: inelastic + exchange1 + dissociation (arr=2 only, CN + O)
+#  Np = 683 800;  bmax = 12.0 Bohr
+###############################################################################
+
+# ==============================================================
+#  Thermodynamics
+# ==============================================================
+   Translational Temperature [K]  = 10000
+   Internal Temperature [K]       = 300
+   Pressure [Pa]                  = 1000
+
+# ==============================================================
+#  Numerics
+# ==============================================================
+   Nb of Particles             = 683800
+   Nb of Time Steps            = 10000000
+   Particle Weight             = 1
+   Output Interval             = 100
+   Population Output Interval  = 1000
+   DMS Timestep Fraction       = 0.01
+
+# ==============================================================
+#  Physics options
+# ==============================================================
+   Bath Type              = isothermal
+   Allow Dissociation     = yes
+   Allow Exchange Arr 1   = yes
+   Allow Exchange Arr 3   = no          # keep only CN + O (Exchange 1)
+   Propagate Phase Space  = yes
+
+# ==============================================================
+#  Integrator (QCT trajectory)
+# ==============================================================
+   Integrator          = VV
+   VV Timestep [a.u.]  = 4.0
+
+# ==============================================================
+#  Output
+# ==============================================================
+   Output Path  = Output/
+
+# ==============================================================
+#  Species
+# ==============================================================
+   Nb of Species  = 2
+
+   # --- Species 1: NO ---
+   Species Name                = NO
+   Species X                   = 0.5
+   Species Tint [K]            = 300
+   Species Levels File         = levels_NO.inp
+   Species Is Molecule         = yes
+   Species NAtoms              = 2
+   Species Atom Name 1         = N
+   Species Atom Mass 1 [a.u.]  = 25526.04298
+   Species Atom Name 2         = O
+   Species Atom Mass 2 [a.u.]  = 29148.94559
+   Species Diatomic Model      = UCI
+   Species gnuc Even J         = 1
+   Species gnuc Odd J          = 1
+
+   # --- Species 2: C ---
+   Species Name                = C
+   Species X                   = 0.5
+   Species Is Molecule         = no
+   Species NAtoms              = 1
+   Species Atom Name 1         = C
+   Species Atom Mass 1 [a.u.]  = 21868.661757
+
+# ==============================================================
+#  Collision pair(s)
+# ==============================================================
+   Nb of Collision Pairs  = 1
+
+   # --- Pair setup ---
+   Collision Pair Species 1      = 1
+   Collision Pair Species 2      = 2
+   Collision Pair System         = CNO
+   Collision Pair Database Path  = $COARSEAIR_DTB/
+
+   # --- Geometry ---
+   Collision Pair bmax [Bohr]   = 12.0
+   Collision Pair Dinit [Bohr]  = 30.0
+
+   # --- ODE parameters (QCT trajectory) ---
+   Collision Pair ODE dt [a.u.]    = 5.0
+   Collision Pair ODE eps          = 1.0e-8
+   Collision Pair ODE NSteps       = 3
+   Collision Pair ODE Relax        = 0.5
+   Collision Pair ODE ncall        = 10
+   Collision Pair ODE Rmax [Bohr]  = 40.0
+   Collision Pair ODE tmax [a.u.]  = 1035000.0
+
+   # --- Quantisation / find-state ---
+   Collision Pair nquad        = 50
+   Collision Pair rcent lower  = 1.0
+   Collision Pair rcent upper  = 30.0
+   Collision Pair rfact        = 0
+   Collision Pair tthresau     = 1.0e-100
+   Collision Pair HamAbsTol    = 1.0e-5
+
+   # --- Potential Energy Surface(s) ---
+   Collision Pair Nb of PESs        = 1
+   Collision Pair PES Model 1       = UCI_4A2
+   Collision Pair PES Degeneracy 1  = 0.11112
+   Collision Pair Distinguish PESs  = no
+
+   # --- Product molecule types ---
+   Collision Pair Nb of Molecule Types       = 3
+   Collision Pair Molecule 1 Name            = NO
+   Collision Pair Molecule 1 Diatomic Model  = UCI
+   Collision Pair Molecule 1 Levels File     = NO_UCI.inp
+   Collision Pair Molecule 2 Name            = CN
+   Collision Pair Molecule 2 Diatomic Model  = UCI
+   Collision Pair Molecule 2 Levels File     = CN_UCI.inp
+   Collision Pair Molecule 3 Name            = CO
+   Collision Pair Molecule 3 Diatomic Model  = UCI
+   Collision Pair Molecule 3 Levels File     = CO_UCI.inp
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="running_simulations.html" class="btn btn-neutral float-left" title="Running Simulations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="output_reference.html" class="btn btn-neutral float-right" title="Output File Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Clement Civrais.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
