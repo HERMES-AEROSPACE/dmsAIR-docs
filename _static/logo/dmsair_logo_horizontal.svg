@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- dmsAIR horizontal wordmark logo
+     HERMES deep blue (#1f3b5a) + hypersonic amber-red (#c92a2a)
+     Bent triatomic molecule icon (3 circles + 2 bonds) left of the text
+     Usage: website header, documentation banner, paper footer -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="520" height="160" role="img" aria-labelledby="title desc">
+  <title id="title">dmsAIR — Direct Molecular Simulation</title>
+  <desc id="desc">Wordmark with a bent triatomic molecule icon on the left and the stylised text "dmsAIR" with "dms" in HERMES deep blue and "AIR" in hypersonic amber-red.</desc>
+
+  <defs>
+    <style><![CDATA[
+      .dms        { fill: #1f3b5a; }
+      .air        { fill: #c92a2a; }
+      .atom-side  { fill: #1f3b5a; }
+      .atom-mid   { fill: #c92a2a; }
+      .bond       { stroke: #1f3b5a; stroke-width: 5; stroke-linecap: round; fill: none; }
+      .velocity   { stroke: #c92a2a; stroke-width: 3.5; stroke-linecap: round; fill: none; }
+      .tagline    { fill: #475569; letter-spacing: 0.35em; }
+    ]]></style>
+  </defs>
+
+  <!-- --- Triatomic-molecule icon (bent, O3 / NO2 / H2O style) --- -->
+  <g transform="translate(70,80)">
+    <!-- velocity / kinetic streaks entering from the left -->
+    <line class="velocity" x1="-66" y1="-14" x2="-48" y2="-14"/>
+    <line class="velocity" x1="-70" y1="  4" x2="-52" y2="  4"/>
+    <line class="velocity" x1="-66" y1=" 22" x2="-48" y2=" 22"/>
+
+    <!-- bonds -->
+    <line class="bond" x1="-30" y1="16" x2="0"   y2="-22"/>
+    <line class="bond" x1="0"   y1="-22" x2="30" y2="16"/>
+
+    <!-- atoms: two side atoms (blue) + central atom (amber-red) -->
+    <circle cx="-30" cy="16"  r="13" class="atom-side"/>
+    <circle cx="0"   cy="-22" r="15" class="atom-mid"/>
+    <circle cx="30"  cy="16"  r="13" class="atom-side"/>
+  </g>
+
+  <!-- --- Main wordmark: dmsAIR --- -->
+  <text x="145" y="95"
+        font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="76" font-weight="700" letter-spacing="-2">
+    <tspan class="dms">dms</tspan><tspan class="air">AIR</tspan>
+  </text>
+
+  <!-- --- Tagline --- -->
+  <text x="148" y="126"
+        font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="13" font-weight="500" class="tagline">
+    DIRECT MOLECULAR SIMULATION
+  </text>
+</svg>
